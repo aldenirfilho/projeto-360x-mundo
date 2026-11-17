@@ -283,6 +283,9 @@ nav.toc{top:58px;background:rgba(18,24,33,.96)}
 .tlinks b{font-family:var(--f-mono);color:var(--accent-ink);font-size:13px}
 @media (max-width:860px){.tlinks{grid-template-columns:1fr}}
 .x-crest{width:34px;height:38px}
+/* cenários: cada quadrante no seu lugar (Q1 ↖ · Q2 ↗ · Q4 ↙ · Q3 ↘) */
+.quad .q1{grid-area:2/2}.quad .q2{grid-area:2/3}.quad .q4{grid-area:3/2}.quad .q3{grid-area:3/3}
+@media (max-width:760px){.quad .q{grid-area:auto}}
 </style>
 </head>
 <body>

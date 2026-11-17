@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Projeto 360X · Mundo — mapa interativo que liga 12 temas geopolítico-tecnológicos a 12 códigos conceituais, 10 cadeias causais e 6 desfechos, com projeção 2031/2036/2046.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/base.css">
+<meta name="theme-color" content="#0b0e13">
+<script>try{if(localStorage.getItem('x360-dys')==='1')document.documentElement.classList.add('x-dys')}catch(e){}</script>
+<title>Mapa de Vínculo · Projeto 360X Mundo</title>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0b0e13; --surface:#121821; --surface-2:#18202b; --ink:#ece4cf; --ink-2:#b9b2a0; --muted:#8a93a0; --line:#263142;
+  --accent:#d4ae4f; --accent-ink:#e3c46f; --accent-soft:#211c10; --accent-line:#5e4d22;
+  --fam-rec:#39d0d8; --fam-est:#d4ae4f; --fam-for:#e8743b;
+  --seq0:#121821; --seq1:#1c5cab; --seq2:#3987e5; --seq3:#86b6ef; --seq3-ink:#0b0e13;
+  --good:#4cc27a; --warn:#f2a33a; --serious:#f2a33a; --critical:#ff7a6b;
+  --focus:#39d0d8; --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 28px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.05;margin:0;text-wrap:balance;letter-spacing:.005em}
+h1{font-size:clamp(38px,6vw,64px);font-weight:700;text-transform:uppercase}
+h2{font-size:clamp(28px,3.6vw,38px);font-weight:700;text-transform:uppercase}
+h3{font-size:22px;font-weight:700}
+h4{font-size:18px;font-weight:600}
+p{margin:0}
+a{color:var(--accent-ink);text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{color:var(--ink)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+code,.mono{font-family:var(--f-mono)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:600}
+.lede{font-size:19px;color:var(--ink-2);max-width:68ch}
+.muted{color:var(--muted)}
+.small{font-size:13.5px}
+.prose{max-width:72ch}
+.prose p+p{margin-top:.75em}
+strong{font-weight:600}
+hr.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+/* masthead */
+.masthead{padding:44px 0 28px;border-bottom:3px solid var(--accent);background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%)}
+.masthead .top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline}
+.stamp{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);border:1.5px solid var(--accent);padding:4px 10px;border-radius:3px}
+.masthead h1{margin-top:12px}
+.masthead .lede{margin-top:14px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-size:13.5px;color:var(--ink-2)}
+.legend span b{font-weight:600;color:var(--ink)}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px;scrollbar-width:thin}
+nav.toc a{white-space:nowrap;font-size:13.5px;font-weight:500;text-decoration:none;color:var(--ink-2);padding:6px 10px;border-radius:999px;border:1px solid transparent}
+nav.toc a:hover{background:var(--surface-2);color:var(--ink)}
+
+/* sections */
+section{padding:48px 0 12px}
+section+section{border-top:1px solid var(--line);margin-top:36px}
+.sec-head{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:22px}
+.sec-head .eyebrow{margin-bottom:2px}
+.sec-head .lede{font-size:17px}
+
+/* core thesis */
+.core{display:grid;grid-template-columns:1.25fr .9fr;gap:22px;align-items:stretch}
+@media (max-width:860px){.core{grid-template-columns:1fr}}
+.core-card{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--accent);padding:26px 28px;box-shadow:var(--shadow)}
+.core-card .thesis{font-family:var(--f-display);font-size:clamp(24px,3vw,32px);line-height:1.15;font-weight:600;text-wrap:balance}
+.core-card .thesis em{font-style:normal;color:var(--accent-ink)}
+.triad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.triad div{background:var(--surface-2);padding:12px 12px 10px;border-radius:4px}
+.triad .k{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.triad .v{font-family:var(--f-display);font-size:24px;font-weight:700;margin-top:2px}
+.triad .s{font-size:13px;color:var(--ink-2);margin-top:2px}
+.method{background:var(--accent-soft);border:1px solid var(--accent-line);padding:22px 24px}
+.method h3{margin-bottom:8px}
+.method ol{margin:8px 0 0;padding-left:22px;font-size:15px}
+.method li+li{margin-top:6px}
+.method .why{margin-top:12px;font-size:14px;color:var(--ink-2)}
+
+/* code table */
+.families{display:grid;grid-template-columns:5fr 4fr 3fr;gap:14px}
+@media (max-width:900px){.families{grid-template-columns:1fr}}
+.family{border:1px solid var(--line);background:var(--surface);padding:14px}
+.family h3{display:flex;align-items:center;gap:8px;font-size:20px;padding-bottom:10px;border-bottom:2px solid var(--fam);margin-bottom:10px}
+.family h3 .n{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-weight:400;margin-left:auto}
+.codes{display:grid;gap:8px}
+.code{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:9px 10px;border-radius:4px;background:var(--surface-2);border-left:4px solid var(--fam)}
+.code .id{font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--ink);padding-top:3px;min-width:34px}
+.code .nm{font-weight:600}
+.code .df{font-size:13.5px;color:var(--ink-2)}
+.code .ex{font-size:12.5px;color:var(--muted);margin-top:2px}
+.fam-rec{--fam:var(--fam-rec)} .fam-est{--fam:var(--fam-est)} .fam-for{--fam:var(--fam-for)}
+
+/* map */
+.map-tools{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px;font-size:14px}
+.map-tools label{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.map-tools button{font:inherit;font-size:13.5px;padding:6px 12px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.map-tools button:hover{background:var(--surface-2)}
+.map-frame{border:1px solid var(--line);background:var(--surface);overflow-x:auto;box-shadow:var(--shadow)}
+.map-frame svg{display:block;min-width:960px;width:100%;height:auto;font-family:var(--f-body)}
+.node rect{fill:var(--surface-2);stroke:var(--line);stroke-width:1;transition:opacity .15s}
+.node text{fill:var(--ink);font-size:13px}
+.node .nid{font-family:var(--f-mono);font-size:11px;fill:var(--muted);font-weight:600}
+.node .fam{stroke:none}
+.node{cursor:pointer}
+.node:hover rect,.node.on rect{stroke:var(--accent);stroke-width:2}
+.node.pinned rect{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2.5}
+.node.dim{opacity:.22}
+.node.out rect{fill:var(--surface);stroke:var(--ink-2)}
+.link{fill:none;stroke:var(--ink-2);stroke-opacity:.16;transition:stroke-opacity .15s,stroke .15s}
+.link.on{stroke:var(--accent);stroke-opacity:.95}
+.link.dim{stroke-opacity:.04}
+.colhead{font-family:var(--f-display);font-size:16px;font-weight:700;fill:var(--ink);text-transform:uppercase;letter-spacing:.04em}
+.colsub{font-size:11.5px;fill:var(--muted)}
+.map-panel{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:860px){.map-panel{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);padding:16px 18px;min-height:120px}
+.panel h4{display:flex;align-items:center;gap:8px}
+.panel h4 .id{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-weight:600}
+.panel .df{margin-top:4px;color:var(--ink-2);font-size:14.5px}
+.panel ul{margin:10px 0 0;padding-left:18px;font-size:14px}
+.panel li+li{margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{font-family:var(--f-mono);font-size:12px;font-weight:600;padding:3px 8px;border-radius:3px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink)}
+.chip.w3{border-color:var(--accent);background:var(--accent-soft)}
+.chip.w2{border-color:var(--accent-line)}
+.chip .w{color:var(--muted);font-weight:400}
+
+/* matrix */
+.matrix-wrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+table.matrix{border-collapse:separate;border-spacing:2px;font-size:13px;min-width:860px;width:100%;font-variant-numeric:tabular-nums}
+table.matrix th{font-weight:600;text-align:left;padding:6px 8px;background:var(--surface);color:var(--ink-2);white-space:nowrap}
+table.matrix thead th{font-family:var(--f-mono);font-size:11.5px;text-align:center;vertical-align:bottom;padding:8px 4px}
+table.matrix thead th span{display:block;font-family:var(--f-body);font-size:11px;color:var(--muted);font-weight:500}
+table.matrix td{text-align:center;padding:0;height:34px;min-width:44px;border-radius:3px;font-weight:600;cursor:default;transition:outline .1s}
+table.matrix td.v0{background:var(--seq0);color:var(--muted);font-weight:400}
+table.matrix td.v1{background:var(--seq1);color:var(--ink)}
+table.matrix td.v2{background:var(--seq2);color:var(--ink)}
+table.matrix td.v3{background:var(--seq3);color:var(--seq3-ink)}
+table.matrix td.sum{background:var(--surface-2);color:var(--ink);font-family:var(--f-mono);font-weight:600}
+table.matrix tr.hl th{color:var(--ink);background:var(--accent-soft)}
+table.matrix th.hl{color:var(--ink)!important;background:var(--accent-soft)!important}
+table.matrix td:hover{outline:2px solid var(--accent);outline-offset:-2px}
+.mx-legend{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2);margin:10px 0 0;flex-wrap:wrap}
+.mx-legend i{display:inline-block;width:22px;height:14px;border-radius:2px;border:1px solid var(--line);vertical-align:middle}
+.tip{position:fixed;pointer-events:none;z-index:50;background:var(--ink);color:var(--bg);font-size:12.5px;padding:6px 9px;border-radius:4px;max-width:280px;opacity:0;transition:opacity .1s}
+.tip.show{opacity:1}
+.readouts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+@media (max-width:860px){.readouts{grid-template-columns:1fr}}
+.readout{background:var(--surface);border:1px solid var(--line);padding:14px 16px}
+.readout .k{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.readout .v{font-family:var(--f-display);font-size:26px;font-weight:700;margin-top:4px}
+.readout .s{font-size:13.5px;color:var(--ink-2);margin-top:4px}
+
+/* chains */
+.chains{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (max-width:860px){.chains{grid-template-columns:1fr}}
+.chain{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:grid;gap:8px;box-shadow:var(--shadow)}
+.chain .hd{display:flex;align-items:baseline;gap:10px}
+.chain .hd .id{font-family:var(--f-mono);font-size:12px;color:var(--accent-ink);font-weight:600}
+.chain .hd h3{font-size:20px}
+.chain .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--f-mono);font-size:12.5px}
+.chain .flow .c{padding:3px 8px;border-radius:3px;background:var(--surface-2);border:1px solid var(--line);font-weight:600}
+.chain .flow .c.rec{border-bottom:3px solid var(--fam-rec)} .chain .flow .c.est{border-bottom:3px solid var(--fam-est)} .chain .flow .c.for{border-bottom:3px solid var(--fam-for)}
+.chain .flow .c.d{background:var(--accent-soft);border-color:var(--accent)}
+.chain .flow .ar{color:var(--muted)}
+.chain p{font-size:14.5px;color:var(--ink-2)}
+.chain .ev{font-size:13.5px;margin:0;padding-left:18px}
+.chain .ev li+li{margin-top:3px}
+.chain .themes{font-size:12.5px;color:var(--muted)}
+.chain .themes b{color:var(--ink-2);font-weight:600}
+
+/* outcomes */
+.outcomes{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (max-width:900px){.outcomes{grid-template-columns:1fr}}
+.outcome{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--accent);padding:18px 20px;display:grid;gap:10px;box-shadow:var(--shadow)}
+.outcome .hd{display:flex;gap:10px;align-items:baseline}
+.outcome .hd .id{font-family:var(--f-mono);font-size:13px;font-weight:600;color:var(--accent-ink)}
+.outcome .def{font-size:15px;color:var(--ink-2);font-style:italic}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
+.kv .k{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:3px;white-space:nowrap}
+.kv .v ul{margin:0;padding-left:16px}
+.kv .v li+li{margin-top:2px}
+.state{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
+.state.crit{border-color:var(--critical);color:var(--critical)}
+.state.warn{border-color:var(--serious);color:var(--serious)}
+.state.good{border-color:var(--good);color:var(--good)}
+.state.info{border-color:var(--fam-rec);color:var(--fam-rec)}
+
+/* timeline */
+.timeline{overflow-x:auto;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.tl{display:grid;grid-template-columns:repeat(6,minmax(190px,1fr));min-width:1140px}
+.tl .col{padding:14px 12px 18px;border-right:1px solid var(--line)}
+.tl .col:last-child{border-right:0}
+.tl .yr{font-family:var(--f-display);font-size:34px;font-weight:700;line-height:1;color:var(--ink)}
+.tl .yr small{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-top:4px;font-weight:600}
+.tl .yr.now{color:var(--accent-ink)}
+.ms{margin-top:12px;display:grid;gap:6px}
+.m{display:grid;grid-template-columns:auto 1fr;gap:6px;align-items:start;font-size:13px;line-height:1.35;padding:6px 8px;border-radius:4px;background:var(--surface-2)}
+.m .d{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--accent-ink);padding-top:2px;min-width:22px}
+.m .st{font-size:11px;color:var(--muted);display:block}
+.m.ok{border-left:3px solid var(--good)} .m.unc{border-left:3px solid var(--warn)} .m.goal{border-left:3px solid var(--fam-rec)}
+.tl-legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--ink-2);margin-top:10px}
+.tl-legend i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:5px}
+
+/* scenarios */
+.quad{display:grid;grid-template-columns:auto 1fr 1fr;grid-template-rows:auto 1fr 1fr auto;gap:10px;align-items:stretch}
+.quad .axis-y{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;grid-row:2/4;grid-column:1}
+.quad .axis-x{grid-column:2/4;grid-row:4;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.quad .axis-top{grid-column:2/4;grid-row:1;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.q{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:grid;gap:8px;align-content:start}
+.q h3{font-size:22px}
+.q .tag{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.q p{font-size:14px;color:var(--ink-2)}
+.q ul{margin:0;padding-left:18px;font-size:13.5px}
+.q li+li{margin-top:3px}
+.q.q1{border-top:4px solid var(--good)} .q.q2{border-top:4px solid var(--fam-rec)} .q.q3{border-top:4px solid var(--critical)} .q.q4{border-top:4px solid var(--serious)}
+@media (max-width:760px){.quad{grid-template-columns:1fr;grid-template-rows:auto}.quad .axis-y,.quad .axis-x,.quad .axis-top{display:none}}
+.sent{margin-top:18px;background:var(--surface);border:1px solid var(--line);padding:18px 20px}
+.sent table{border-collapse:collapse;width:100%;font-size:14px}
+.sent th{text-align:left;font-weight:600;color:var(--ink-2);padding:6px 8px;border-bottom:2px solid var(--line);font-size:13px}
+.sent td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.sent td:first-child{white-space:nowrap}
+.lens{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+@media (max-width:760px){.lens{grid-template-columns:1fr}}
+.lens div{background:var(--surface-2);padding:12px 14px;font-size:14px;border-radius:4px}
+.lens b{display:block;margin-bottom:2px}
+
+/* dossiers */
+details.dz{background:var(--surface);border:1px solid var(--line);margin-bottom:10px}
+details.dz summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:14px 18px}
+details.dz summary::-webkit-details-marker{display:none}
+details.dz summary .id{font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--accent-ink)}
+details.dz summary .t{font-family:var(--f-display);font-size:22px;font-weight:700}
+details.dz summary .t small{display:block;font-family:var(--f-body);font-size:13.5px;font-weight:400;color:var(--ink-2)}
+details.dz summary .arrow{color:var(--muted);transition:transform .15s}
+details.dz[open] summary .arrow{transform:rotate(90deg)}
+details.dz[open] summary{border-bottom:1px solid var(--line);background:var(--surface-2)}
+.dz-body{padding:16px 18px 18px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+@media (max-width:860px){.dz-body{grid-template-columns:1fr}}
+.dz-body h4{font-size:15px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);margin-bottom:6px}
+.dz-body ul{margin:0;padding-left:18px;font-size:14.5px}
+.dz-body li+li{margin-top:4px}
+.dz-body .box{background:var(--surface-2);padding:12px 14px;border-radius:4px}
+.dz-body .box+.box{margin-top:10px}
+.dz-body .links{font-size:13px}
+table.mini{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:6px}
+table.mini th{text-align:left;font-weight:600;color:var(--ink-2);padding:4px 6px;border-bottom:1px solid var(--line)}
+table.mini td{padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+
+/* you */
+.you{background:var(--accent-soft);border:1px solid var(--accent-line);padding:22px 24px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px 24px}
+@media (max-width:760px){.you{grid-template-columns:1fr}}
+.you h2{grid-column:1/-1;font-size:28px}
+.you div p{font-size:14.5px}
+.you b{display:block;font-weight:600}
+.extras{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:900px){.extras{grid-template-columns:1fr}}
+.extra{background:var(--surface);border:1px solid var(--line);padding:16px 18px}
+.extra ol,.extra ul{margin:8px 0 0;padding-left:18px;font-size:14px}
+.extra li+li{margin-top:5px}
+.sources{columns:2;column-gap:28px;font-size:13.5px}
+@media (max-width:760px){.sources{columns:1}}
+.sources h4{break-after:avoid;margin:10px 0 4px;font-size:15px}
+.sources ul{margin:0 0 8px;padding-left:16px}
+.sources li{break-inside:avoid;margin-bottom:2px}
+footer{padding:28px 0 48px;color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+/* ajustes 360X */
+body{font-size:17px}
+h1{font-size:clamp(30px,4.4vw,50px);letter-spacing:.02em}
+h2{font-size:clamp(22px,2.8vw,31px);letter-spacing:.02em}
+h3,h4{font-family:var(--f-body)}
+.core-card .thesis{font-family:var(--f-body);font-weight:500;font-size:clamp(20px,2.4vw,25px);line-height:1.35}
+.masthead{background:radial-gradient(1000px 360px at 85% 0%,rgba(57,208,216,.08),transparent 60%),linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);border-bottom:2px solid var(--accent)}
+nav.toc{top:58px;background:rgba(18,24,33,.96)}
+.fix{display:inline-block;font:600 11px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#0b0e13;background:#f2a33a;padding:2px 6px;border-radius:3px;vertical-align:1px}
+.tlinks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tlinks a{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.tlinks a:hover{border-color:var(--accent-line)}
+.tlinks b{font-family:var(--f-mono);color:var(--accent-ink);font-size:13px}
+@media (max-width:860px){.tlinks{grid-template-columns:1fr}}
+.x-crest{width:34px;height:38px}
+</style>
+</head>
+<body>
+
+<a class="x-skip" href="#conteudo">Pular para o conteúdo</a>
+<header class="x-bar"><div class="x-bar-in">
+  <a class="x-brand" href="index.html" aria-label="Projeto 360X · Mundo — início"><svg class="x-crest" viewBox="0 0 64 72" aria-hidden="true" focusable="false"><path d="M32 3 L59 11 V35 C59 52 47 63 32 69 C17 63 5 52 5 35 V11 Z" fill="#121821" stroke="#d4ae4f" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M32 9 L53 15 V35 C53 48 44 57 32 62 C20 57 11 48 11 35 V15 Z" fill="none" stroke="#d4ae4f" stroke-opacity=".35" stroke-width="1"/>
+<circle cx="32" cy="35" r="13" fill="none" stroke="#39d0d8" stroke-width="2"/>
+<ellipse cx="32" cy="35" rx="5.5" ry="13" fill="none" stroke="#39d0d8" stroke-width="1.2" stroke-opacity=".8"/>
+<line x1="19" y1="35" x2="45" y2="35" stroke="#39d0d8" stroke-width="1.2" stroke-opacity=".8"/>
+<g class="orbit"><ellipse cx="32" cy="35" rx="22" ry="6.5" fill="none" stroke="#d4ae4f" stroke-width="1.8" transform="rotate(-22 32 35)"/>
+<circle cx="51.6" cy="27.4" r="2.4" fill="#d4ae4f"/></g></svg><span class="x-word"><b>PROJETO 360X</b><small>MUNDO · OBSERVATÓRIO</small></span></a>
+  <nav class="x-nav" aria-label="Navegação principal"><a href="index.html">🏰 Início</a><a href="temas.html">🧭 12 Temas</a><a href="mapa.html" aria-current="page">🗺️ Mapa de vínculo</a><a href="panorama.html">📜 Panorama</a><a href="analise.html">⛓️ Análise</a><a href="index.html#sentinelas">📡 Sentinelas</a></nav>
+  <button class="x-read" type="button" aria-pressed="false" title="Alterna a fonte OpenDyslexic para leitura">🔤 Modo leitura</button>
+</div></header>
+<header class="masthead" id="conteudo">
+  <div class="wrap">
+    <div class="top">
+      <span class="eyebrow">PROJETO 360X · MUNDO · Dossiê de síntese · corte 08 set 2026 · sentinelas revistas em 17 nov 2026</span>
+      <span class="stamp">12 temas → 12 códigos → 6 desfechos → projeção 2031 · 2036 · 2046</span>
+    </div>
+    <h1>Mapa de Vínculo → Desfecho Objetivo</h1>
+    <p class="lede">Os 12 módulos do Projeto 360X · Mundo tratados como <strong>um único sistema</strong>: cada tema é decomposto em códigos conceituais, os códigos são ligados por cadeias causais com evidência datada, e as cadeias convergem para seis desfechos mensuráveis com relógio (2027 → 2030 → 2035 → 2049). 🧠🗺️</p>
+    <div class="legend">
+      <span>✅ <b>verificado</b> (fonte datada lida em 08/09 ou em 17/11)</span>
+      <span>📄 <b>panorama de 08/09</b> (≈45 fontes — ver Panorama)</span>
+      <span>🧠 <b>conhecimento prévio</b> (pré-jun/2026, não reverificado)</span>
+      <span>⚠️ <b>incerto / em disputa</b></span>
+    </div>
+  </div>
+</header>
+<nav class="toc" aria-label="Seções">
+  <div class="wrap">
+    <a href="#tese">🎯 Tese</a><a href="#codigos">🧩 Códigos</a><a href="#mapa">🗺️ Mapa</a><a href="#matriz">🔢 Matriz</a><a href="#cadeias">⛓️ Cadeias</a><a href="#desfechos">🏁 Desfechos</a><a href="#linha">⏱️ Linha do tempo</a><a href="#cenarios">🔮 Cenários</a><a href="#projecao">🌍 Projeção 2046</a><a href="temas.html">📂 12 Temas</a><a href="#cidadao">🧭 Para o cidadão</a><a href="#extras">🤓 Extras</a><a href="#fontes">🔗 Fontes</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ===================== TESE ===================== -->
+<section id="tese">
+  <div class="sec-head">
+    <span class="eyebrow">0 · Categoria central (codificação seletiva)</span>
+    <h2>🎯 A tese que amarra os 12 temas</h2>
+  </div>
+  <div class="core">
+    <div class="core-card">
+      <p class="thesis">Os 12 temas são <em>um sistema com três insumos</em> (compute, energia, dados), <em>dois atores</em> capazes de controlar os três (EUA e China), <em>um relógio</em> (as metas chinesas 2027 → 2030 → 2035 → 2049) e <em>um interruptor</em> (governança: regras que funcionam ou que colapsam). Quem controlar o triângulo em 2030 define a ordem de 2035; a posição do interruptor define se 2049 é expansão ou autodestruição.</p>
+      <div class="triad">
+        <div><div class="k">Insumo 1</div><div class="v">🧮 Compute</div><div class="s">Nvidia &gt;60 % do compute mundial 📄 · gargalo chinês = HBM (CXMT só terá HBM3E em 2027) ✅</div></div>
+        <div><div class="k">Insumo 2</div><div class="v">⚡ Energia</div><div class="s">9,8 GW nucleares contratados por big techs 📄 · HALEU US$ 900 mi 📄</div></div>
+        <div><div class="k">Insumo 3</div><div class="v">🧬 Dados</div><div class="s">CNCB chinês &gt;100 PB de genomas (fev/26) ✅ · OpenAI 1,1 bi MAU 📄</div></div>
+      </div>
+      <div class="triad" style="grid-template-columns:repeat(2,1fr)">
+        <div><div class="k">Relógio</div><div class="v">🏮 2027 · 2030 · 2035 · 2049</div><div class="s">PLA centenário → AI+ 90 % + Lua + fusão → modernização básica → "país socialista moderno e forte" ✅🧠</div></div>
+        <div><div class="k">Interruptor</div><div class="v">📜 Governança</div><div class="s">New START morto (fev/26) 📄 · AIEA sem acesso ao Irã 📄 · AI Act adiado 📄 · BIOSECURE sancionado ✅</div></div>
+      </div>
+    </div>
+    <aside class="method">
+      <h3>🔬 Como o mapa foi construído</h3>
+      <p class="small">Método emprestado da <strong>Teoria Fundamentada</strong> (Strauss &amp; Corbin) — o mesmo que você usaria numa dissertação qualitativa, aplicado a geopolítica:</p>
+      <ol>
+        <li><strong>Codificação aberta</strong> — cada tema foi quebrado em fatos datados (≈60 evidências).</li>
+        <li><strong>Codificação axial</strong> — os fatos foram agrupados em <strong>12 códigos</strong> que atravessam temas (ex.: "gargalo" aparece em chips, urânio, refueling orbital e HBM).</li>
+        <li><strong>Cadeias causais</strong> — 10 mecanismos ligam códigos entre si com evidência (M01–M10).</li>
+        <li><strong>Codificação seletiva</strong> — as cadeias convergem em <strong>6 desfechos objetivos</strong> com indicador, data e sentinelas.</li>
+      </ol>
+      <p class="why">Peso dos vínculos (0–3) é <strong>julgamento analítico</strong> com base na evidência, não medida estatística. Ele serve para ordenar atenção, não para provar causalidade. Onde a evidência é fraca, a matriz mostra 0–1 de propósito.</p>
+    </aside>
+  </div>
+  <figure style="margin:18px 0 0">
+    <img src="assets/img/360x-triangulo-compute-energia-dados.webp" width="2400" height="1350" loading="lazy" alt="Seis gráficos radar (EUA, China, União Europeia, Rússia, Brasil, Índia) com pontuação 0–5 em compute, energia e dados" style="width:100%;height:auto;border:1px solid var(--line);background:#fcfcfb">
+    <figcaption class="small muted" style="margin-top:6px">O triângulo por ator (escala 0–5, julgamento analítico): só EUA e China pontuam alto nos três; Rússia é a assimetria; Brasil tem energia sem stack; a UE tem regras sem compute.</figcaption>
+  </figure>
+</section>
+
+<!-- ===================== CÓDIGOS ===================== -->
+<section id="codigos">
+  <div class="sec-head">
+    <span class="eyebrow">1 · Codificação axial</span>
+    <h2>🧩 Os 12 códigos conceituais</h2>
+    <p class="lede">Três famílias: o que se <strong>tem</strong> (recursos), como o poder se <strong>organiza</strong> (estrutura) e como ele se <strong>aplica</strong> (força). Cada código carrega os temas onde mais pesa.</p>
+  </div>
+  <div class="families">
+    <div class="family fam-rec">
+      <h3>⚙️ Recursos <span class="n">C01–C05</span></h3>
+      <div class="codes">
+        <div class="code"><span class="id">C01</span><div><div class="nm">🧮 COMPUTE</div><div class="df">Chips, HBM, data centers — "quem tem FLOPS".</div><div class="ex">Pesa em: T01 · T02 · T06 · T12</div></div></div>
+        <div class="code"><span class="id">C02</span><div><div class="nm">⚡ ENERGIA</div><div class="df">GW para IA; nuclear, HALEU, fusão, reator lunar.</div><div class="ex">Pesa em: T09 · T01 · T08 · T12</div></div></div>
+        <div class="code"><span class="id">C03</span><div><div class="nm">🧬 DADOS</div><div class="df">Texto, telemetria, biometria, genoma — a matéria-prima.</div><div class="ex">Pesa em: T03 · T01 · T02 · T07 · T10</div></div></div>
+        <div class="code"><span class="id">C04</span><div><div class="nm">🧑‍🔬 TALENTO</div><div class="df">Formação, diáspora, repatriação, R&amp;D.</div><div class="ex">Pesa em: T02 · T01 · T12</div></div></div>
+        <div class="code"><span class="id">C05</span><div><div class="nm">💰 CAPITAL</div><div class="df">Investimento privado/estatal, valuations, IPOs, subsídios.</div><div class="ex">Pesa em: T01 · T08 · T02 · T04 · T05 · T09</div></div></div>
+      </div>
+    </div>
+    <div class="family fam-est">
+      <h3>🏛️ Estrutura <span class="n">C06–C07 · C11–C12</span></h3>
+      <div class="codes">
+        <div class="code"><span class="id">C06</span><div><div class="nm">🛡️ SOBERANIA</div><div class="df">Autonomia tecnológica; "IA soberana"; nuvem e genoma nacionais.</div><div class="ex">Pesa em: T02 · T03 · T04 · T05 · T12</div></div></div>
+        <div class="code"><span class="id">C07</span><div><div class="nm">⛓️ GARGALO</div><div class="df">Dependência assimétrica: EUV, HBM, TSMC, SWU, refueling orbital.</div><div class="ex">Pesa em: T06 · T02 · T09 · T08</div></div></div>
+        <div class="code"><span class="id">C11</span><div><div class="nm">📜 GOVERNANÇA</div><div class="df">Regras e sua erosão: AI Act, TSE, New START, AIEA, export controls, BIOSECURE.</div><div class="ex">Pesa em: T03 · T04 · T05 · T09 · T10 · T11</div></div></div>
+        <div class="code"><span class="id">C12</span><div><div class="nm">🌐 DIFUSÃO</div><div class="df">Quem acessa: preço, open-weight, penetração AI+, o smartphone como terminal.</div><div class="ex">Pesa em: T02 · T06 · T07 · T12</div></div></div>
+      </div>
+    </div>
+    <div class="family fam-for">
+      <h3>⚔️ Força <span class="n">C08–C10</span></h3>
+      <div class="codes">
+        <div class="code"><span class="id">C08</span><div><div class="nm">⚔️ DUAL-USE</div><div class="df">Civil ↔ militar: enriquecimento, SLV ↔ míssil, LLM ↔ ciber, genoma ↔ bio.</div><div class="ex">Pesa em: T08 · T09 · T10</div></div></div>
+        <div class="code"><span class="id">C09</span><div><div class="nm">🎯 DISSUASÃO</div><div class="df">Capacidade de infligir custo e velocidade de decisão: ogivas, Golden Dome, NC3.</div><div class="ex">Pesa em: T08 · T09 · T10 · T11</div></div></div>
+        <div class="code"><span class="id">C10</span><div><div class="nm">👁️ BIOPODER</div><div class="df">Controle de populações por dados: DNA, reconhecimento, deepfake, vigilância.</div><div class="ex">Pesa em: T03 · T05 · T07 · T10</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MAPA ===================== -->
+<section id="mapa">
+  <div class="sec-head">
+    <span class="eyebrow">2 · Mapa de vínculo interativo</span>
+    <h2>🗺️ Temas → Códigos → Desfechos</h2>
+    <p class="lede">Passe o mouse ou clique em qualquer nó para isolar seus vínculos. A espessura da linha é o peso (1–3). Por padrão só aparecem vínculos de peso ≥ 2 — ligue os fracos para ver a rede completa.</p>
+  </div>
+  <div class="map-tools">
+    <label><input type="checkbox" id="weak"> mostrar vínculos fracos (peso 1)</label>
+    <button type="button" id="reset">Limpar seleção</button>
+    <span class="muted small">Clique fixa; clique de novo solta. Teclado: Tab + Enter.</span>
+  </div>
+  <div class="map-frame"><svg id="map" viewBox="0 0 1180 780" role="img" aria-label="Diagrama tripartite ligando 12 temas a 12 códigos conceituais e a 6 desfechos objetivos; a espessura das linhas indica o peso do vínculo"></svg></div>
+  <div class="map-panel">
+    <div class="panel" id="panel-a"><h4><span class="id">—</span> Selecione um nó</h4><p class="df">O painel mostra a definição, as evidências e os vínculos ponderados do nó escolhido.</p></div>
+    <div class="panel" id="panel-b"><h4><span class="id">💡</span> Leitura rápida do mapa</h4><ul>
+      <li><strong>Códigos mais conectados</strong> (soma dos pesos dos temas): C11 Governança (27), C06 Soberania (25), C07 Gargalo (24), C05 Capital (23) — o sistema é mais sobre <em>regras, dependências e dinheiro</em> do que sobre "quem tem o melhor modelo".</li>
+      <li><strong>Desfecho mais alimentado</strong>: D4 (militarização sem controle) e D2 (bifurcação) — ambos crescem quando C11 falha.</li>
+      <li><strong>Temas mais largos</strong>: T02 China (26), T01 IAs (23), T12 metas chinesas (22 — o único que toca todos os 12 códigos; é o relógio que sincroniza o resto).</li>
+      <li><strong>Temas mais estreitos</strong>: T07 smartphones (15) e T06 chips (16) — concentrados em compute, gargalo e difusão. T03 (DNA) tem quatro zeros, mas pesa 3 em dados, soberania, biopoder e governança: é o que define D5.</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ===================== MATRIZ ===================== -->
+<section id="matriz">
+  <div class="sec-head">
+    <span class="eyebrow">3 · Matriz de intensidade</span>
+    <h2>🔢 Temas × Códigos e Códigos × Desfechos</h2>
+    <p class="lede">Escala 0–3 (julgamento analítico ancorado na evidência). Linhas somam a "largura" de um tema; colunas somam a "centralidade" de um código.</p>
+  </div>
+  <div class="matrix-wrap"><table class="matrix" id="mx1"></table></div>
+  <div class="mx-legend"><span>Intensidade:</span><i style="background:var(--seq0)"></i>0 <i style="background:var(--seq1)"></i>1 <i style="background:var(--seq2)"></i>2 <i style="background:var(--seq3)"></i>3 <span class="muted">· passe o mouse para ver o par</span></div>
+  <div class="readouts" id="readouts"></div>
+  <h3 style="margin:26px 0 10px">Códigos × Desfechos</h3>
+  <div class="matrix-wrap"><table class="matrix" id="mx2"></table></div>
+</section>
+
+<!-- ===================== CADEIAS ===================== -->
+<section id="cadeias">
+  <div class="sec-head">
+    <span class="eyebrow">4 · Mecanismos</span>
+    <h2>⛓️ As 10 cadeias causais que ligam tudo</h2>
+    <p class="lede">Cada cadeia é uma sequência de códigos com evidência datada. São os "fios" do mapa — onde um fato de um tema muda o resultado de outro.</p>
+  </div>
+  <div class="chains">
+
+    <article class="chain"><div class="hd"><span class="id">M01</span><h3>💾 A "lei do HBM": a fronteira encarece o hardware de todos</h3></div>
+      <div class="flow"><span class="c rec">C01 Compute</span><span class="ar">→</span><span class="c est">C07 Gargalo</span><span class="ar">→</span><span class="c est">C12 Difusão</span><span class="ar">⇒</span><span class="c d">D6 Acesso</span></div>
+      <p>Treinar e servir modelos de fronteira exige HBM; HBM consome muito mais wafer por bit; a DRAM comum é canibalizada; o preço sobe para PCs e celulares do planeta inteiro.</p>
+      <ul class="ev"><li>DRAM <strong>+172 %</strong> em 2025; memória = <strong>35 %</strong> do custo de um PC 📄</li><li>OpenAI ≈ <strong>40 %</strong> da DRAM mundial (Stargate ≈ 900 mil wafers/mês) 📄</li><li>IDC (mar/26): smartphones <strong>−12,9 %</strong> em unidades e <strong>+14,2 %</strong> no preço médio em 2026 ✅</li><li>Fim do aperto: Micron 2027 · Samsung 2028 · SK Hynix <strong>2030</strong> 📄</li></ul>
+      <div class="themes">Temas: <b>T01 · T06 · T07 · T05</b></div></article>
+
+    <article class="chain"><div class="hd"><span class="id">M02</span><h3>🇨🇳 O gargalo decide, não o talento</h3></div>
+      <div class="flow"><span class="c rec">C04 Talento</span><span class="ar">+</span><span class="c rec">C01 Compute</span><span class="ar">→</span><span class="c est">C07 Gargalo</span><span class="ar">→</span><span class="c est">C12 Difusão</span><span class="ar">⇒</span><span class="c d">D1 · D2</span></div>
+      <p>A China já forma elite sozinha e chegou a 2,7 % do desempenho americano; o que a segura é memória e litografia. A resposta foi algorítmica (MoE, quantização) e estratégica (<em>open-weight</em> como cavalo de Troia de adoção global).</p>
+      <ul class="ev"><li><strong>53,5 %</strong> da equipe DeepSeek formada só na China; <strong>71 %</strong> dos que passaram pelos EUA voltaram 📄</li><li>Gap Elo <strong>2,7 %</strong> (Stanford AI Index 2026) gastando 23× menos 📄</li><li>Ascend: estimativas divergem — <strong>&lt;300 mil/ano</strong> no panorama 📄 × ~810 mil entregues em 2025 e meta de 600 mil 910C em 2026 ✅ <span class="fix">correção 17/11</span>; o gargalo segue sendo HBM (CXMT)</li><li>Kimi K3 (MIT, gratuito) empatado com Gemini 3.1 Pro/GPT-5.4 no índice AA 📄</li></ul>
+      <div class="themes">Temas: <b>T02 · T06 · T12 · T01</b></div></article>
+
+    <article class="chain"><div class="hd"><span class="id">M03</span><h3>⚡ A IA come energia → o planeta renucleariza → a latência se espalha</h3></div>
+      <div class="flow"><span class="c rec">C01 Compute</span><span class="ar">→</span><span class="c rec">C02 Energia</span><span class="ar">→</span><span class="c for">C08 Dual-use</span><span class="ar">→</span><span class="c for">C09 Dissuasão</span><span class="ar">⇒</span><span class="c d">D3 · D4</span></div>
+      <p>Data centers contratam reatores; reatores precisam de combustível (HALEU) e enriquecimento; enriquecimento é a tecnologia mais dual-use que existe. O mesmo dinheiro que religa Three Mile Island torna "normal" que Riad, Seul e Brasília queiram centrífugas.</p>
+      <ul class="ev"><li><strong>9,8 GW</strong> em 13 acordos: Microsoft/TMI-1 835 MW (2027, US$ 16 bi), Meta 5,2 GW, Amazon 960 MW 📄</li><li>DOE: <strong>US$ 900 mi</strong> para HALEU (jan/26) 📄</li><li>Arábia Saudita: acordo 123 com enriquecimento até 5 % (possível 20 %) <strong>sem Protocolo Adicional</strong> 📄; Coreia do Sul negociando; Brasil INB rumo a 70 % de Angra 📄</li></ul>
+      <div class="themes">Temas: <b>T09 · T01 · T10 · T05</b></div></article>
+
+    <article class="chain"><div class="hd"><span class="id">M04</span><h3>🎯 Compressão do tempo de decisão sem tratado</h3></div>
+      <div class="flow"><span class="c rec">C03 Dados</span><span class="ar">→</span><span class="c for">C08 Dual-use</span><span class="ar">→</span><span class="c for">C09 Dissuasão</span><span class="ar">×</span><span class="c est">C11 Governança ↓</span><span class="ar">⇒</span><span class="c d">D4</span></div>
+      <p>Dos dois lados, LLMs e agentes já encurtam o ciclo sensor-tiro; do lado das regras, o único tratado numérico EUA-Rússia morreu e não há nada vinculante sobre IA em comando nuclear.</p>
+      <ul class="ev"><li>Claude usado para <strong>identificar alvos nas primeiras horas da Op. Epic Fury</strong> contra o Irã (CNAS, via Air &amp; Space Forces) ✅</li><li>PLAAF exibiu sistema de planejamento de ataque por IA: <strong>100+ unidades</strong> coordenadas, centenas de alvos (documentário de 03/ago/26) ✅</li><li>Pentágono designou a Anthropic "risco de cadeia" (mar/26) por ela recusar uso irrestrito em <strong>armas autônomas e vigilância doméstica</strong>; em set/26 o Tribunal de Apelações do D.C. manteve a designação (2×1) ✅ <span class="fix">correção 17/11</span></li><li>New START expirou em fev/26; Golden Dome US$ 185 bi, meta 2028 📄</li></ul>
+      <div class="themes">Temas: <b>T10 · T09 · T08 · T01</b></div></article>
+
+    <article class="chain"><div class="hd"><span class="id">M05</span><h3>🧬 Soberania por dados: a porta que só abre para dentro</h3></div>
+      <div class="flow"><span class="c rec">C03 Dados</span><span class="ar">→</span><span class="c est">C06 Soberania</span><span class="ar">→</span><span class="c for">C10 Biopoder</span><span class="ar">×</span><span class="c est">C11 Governança</span><span class="ar">⇒</span><span class="c d">D5 · D2</span></div>
+      <p>A China trata o genoma como recurso estratégico: coleta em massa dentro (minorias, homens), importa de fora (testes pré-natais) e proíbe exportar. Os EUA respondem com listas; a Europa com o AI Act; o Brasil com a regra do deepfake. Nasce uma bifurcação de dados paralela à de chips.</p>
+      <ul class="ev"><li>Tibete: <strong>919 mil–1,2 mi</strong> amostras (25–33 % da população), incluindo crianças (Citizen Lab) ✅ · Y-STR: alvo de <strong>35–70 mi</strong> homens (ASPI) ✅</li><li>CNCB &gt;<strong>100 PB</strong> (fev/26); BGI pré-natal em 52 países, 8,4 mi mulheres; minuta mai/26 exige depósito estatal antes de publicar (Jamestown) ✅</li><li>BIOSECURE Act sancionado <strong>18/dez/25</strong> (NDAA FY26); BGI/MGI na lista 1260H (188 empresas, ago/26); BINSA passou na Câmara (02/ago/26) ✅</li></ul>
+      <div class="themes">Temas: <b>T03 · T05 · T04 · T02</b></div></article>
+
+    <article class="chain"><div class="hd"><span class="id">M06</span><h3>💰 Capital como arma: a ordem de grandeza define a liga</h3></div>
+      <div class="flow"><span class="c rec">C05 Capital</span><span class="ar">→</span><span class="c rec">C01 Compute</span><span class="ar">→</span><span class="c est">C06 Soberania</span><span class="ar">⇒</span><span class="c d">D1 · D2</span></div>
+      <p>EUA jogam com centenas de bilhões privados; China com dezenas de bilhões estatais dirigidos; Europa com dezenas de bilhões públicos lentos; Brasil com unidades de bilhão. A ordem de grandeza — não a inteligência — decide quem inventa e quem apenas hospeda.</p>
+      <ul class="ev"><li>Investimento privado em IA: EUA <strong>US$ 344 bi</strong> (2025), razão 23:1 vs China 📄</li><li>China: ≈<strong>€60 bi</strong> de subsídio a chips (Huawei, Cambricon) no 15º Plano (MERICS) ✅; meta de "70 % de autossuficiência" foi <strong>retirada</strong> do plano ✅</li><li>Europa: AI Gigafactories <strong>€20 bi</strong>, obras em 2027; Mistral €3 bi a €21 bi (08/09) 📄</li><li>Brasil: PBIA R$ 23 bi + pacote <strong>R$ 2,6 bi</strong> (ago/26) 📄</li></ul>
+      <div class="themes">Temas: <b>T01 · T02 · T04 · T05</b></div></article>
+
+    <article class="chain"><div class="hd"><span class="id">M07</span><h3>🚀 Órbita como infraestrutura: compute, energia e dissuasão em LEO</h3></div>
+      <div class="flow"><span class="c rec">C05 Capital</span><span class="ar">→</span><span class="c est">C07 Gargalo</span><span class="ar">→</span><span class="c for">C08 Dual-use</span><span class="ar">→</span><span class="c for">C09 Dissuasão</span><span class="ar">⇒</span><span class="c d">D4 · D3</span></div>
+      <p>A fusão SpaceX+xAI transforma lançador, constelação e data center num só ator; o Golden Dome militariza a órbita; o reator lunar americano e o pouso chinês de 2030 são a mesma corrida com dois combustíveis. O gargalo físico segue sendo transferir metano/LOX criogênico em microgravidade.</p>
+      <ul class="ev"><li>SpaceX+xAI: US$ 1,25 tri (fev/26) → IPO recorde jun/26; Starship 13 voos, <strong>refueling ainda não demonstrado</strong>; voo 14 atingiu a órbita em 28/set, ainda sem transferência de propelente ✅</li><li>Golden Dome: <strong>US$ 185 bi</strong>; US$ 3,2 bi/12 empresas para interceptores orbitais 📄</li><li>NSTM-3: reator lunar até <strong>2030</strong>, reator espacial militar 2031 📄 · China: LM-10 e Mengzhou testados, pouso tripulado 2030 📄</li></ul>
+      <div class="themes">Temas: <b>T08 · T09 · T10 · T07</b></div></article>
+
+    <article class="chain"><div class="hd"><span class="id">M08</span><h3>🏮 O relógio chinês sincroniza os outros</h3></div>
+      <div class="flow"><span class="c est">C06 Soberania</span><span class="ar">→</span><span class="c est">C12 Difusão</span><span class="ar">→</span><span class="c for">C09 Dissuasão</span><span class="ar">⇒</span><span class="c d">todos os D</span></div>
+      <p>A China é o único ator com uma agenda datada de ponta a ponta. Cada marco cria prazo para os outros: Artemis "até 2028" existe porque a Lua chinesa é 2030; o AI Act foi adiado porque a indústria não acompanhava; o BIOSECURE existe porque o CNCB existe.</p>
+      <ul class="ev"><li><strong>2027</strong>: centenário do PLA ("intelligentização") + AI+ 70 % de penetração ✅</li><li><strong>2030</strong>: AI+ 90 %; "líder mundial em IA" (plano de 2017) 🧠; pouso lunar; "lâmpada acesa por fusão" 📄; 15º Plano: P&amp;D +7,1 %/ano, economia digital 12,5 % do PIB, 25 % não fóssil ✅</li><li><strong>2035</strong>: "modernização socialista básica" + defesa "basicamente modernizada" + economia inteligente plena ✅</li><li><strong>2049</strong>: "país socialista moderno e forte" + exército "de classe mundial" (centenário da RPC) ✅🧠</li></ul>
+      <div class="themes">Temas: <b>T12 · T02 · T08 · T09 · T10</b></div></article>
+
+    <article class="chain"><div class="hd"><span class="id">M09</span><h3>📱 O terminal e a periferia: quem controla o aparelho controla a difusão</h3></div>
+      <div class="flow"><span class="c est">C12 Difusão</span><span class="ar">→</span><span class="c est">C07 Gargalo</span><span class="ar">→</span><span class="c for">C10 Biopoder</span><span class="ar">⇒</span><span class="c d">D6 · D5</span></div>
+      <p>O smartphone é onde a IA chega ao cidadão (agentes on-device, 12 GB mínimo, 2 nm, dobráveis, satélite direct-to-cell). A crise de RAM sobe o preço; os fabricantes chineses oferecem mais por menos (baterias de 7.500 mAh, HarmonyOS); o Sul Global ganha difusão <em>com</em> dependência.</p>
+      <ul class="ev"><li>dobrável lançado como <strong>iPhone Duo</strong>, a partir de US$ 1.999 (09/set) <span class="fix">correção 17/11</span>; iPhone 18 Pro +US$ 100–300 (efeito RAM) 📄</li><li>IDC: dobráveis <strong>+30 %</strong> em 2026, Apple com 22 % das unidades e 34 % do valor no 1º ano; CAGR 17 % até 2029 ✅</li><li>Galaxy S26: agente Gemini+Perplexity+Bixby on-device; Privacy Display por pixel 📄 · 6G comercial ≈ 2030 🧠</li></ul>
+      <div class="themes">Temas: <b>T07 · T06 · T02 · T05</b></div></article>
+
+    <article class="chain"><div class="hd"><span class="id">M10</span><h3>🌍 Estados intermediários forçados a escolher stack</h3></div>
+      <div class="flow"><span class="c est">C06 Soberania</span><span class="ar">×</span><span class="c est">C07 Gargalo</span><span class="ar">×</span><span class="c est">C11 Governança</span><span class="ar">⇒</span><span class="c d">D2 · D6</span></div>
+      <p>Brasil, Europa, Golfo e Coreia querem "soberania", mas soberania sem EUV, HBM ou SWU é escolha de fornecedor. O alinhamento de stack (CUDA/TSMC/GenBank vs Ascend/SMIC/CNCB) vira a nova geografia política.</p>
+      <ul class="ev"><li>Brasil: supercomputador UFRN com GPU <strong>"a definir"</strong> + máquina RJ com Huawei/iFlytek (<em>Entity List</em>) — duas apostas opostas no mesmo plano 📄</li><li>Mistral: rodada liderada pela Samsung, ASML parceira — mas expande com a Microsoft e hospeda modelos chineses 📄</li><li>Coreia do Sul: HBM (Samsung/SK Hynix) é a alavanca para negociar enriquecimento 📄 · Pequim bloqueando H200; Nvidia retirou a China do guidance (26/ago) 📄</li></ul>
+      <div class="themes">Temas: <b>T04 · T05 · T06 · T09 · T02</b></div></article>
+  </div>
+</section>
+
+<!-- ===================== DESFECHOS ===================== -->
+<section id="desfechos">
+  <div class="sec-head">
+    <span class="eyebrow">5 · Codificação seletiva</span>
+    <h2>🏁 Os 6 desfechos objetivos</h2>
+    <p class="lede">Cada desfecho tem <strong>indicador mensurável</strong>, <strong>estado em set/2026</strong>, <strong>data-chave</strong> e <strong>sentinelas</strong> — o que observar para saber se está virando.</p>
+  </div>
+  <div class="outcomes">
+
+    <article class="outcome"><div class="hd"><span class="id">D1</span><h3>🏁 Quem controla a fronteira da IA em 2030</h3></div>
+      <p class="def">Ter o modelo mais capaz <em>e</em> o compute para servi-lo em escala.</p>
+      <div class="kv">
+        <span class="k">Indicador</span><div class="v"><ul><li>Gap Elo China–EUA: <strong>2,7 %</strong> (mar/26) 📄</li><li>Share de compute: Nvidia <strong>&gt;60 %</strong> 📄; investimento privado 23:1 📄</li><li>Modelos notáveis 2025: EUA 50 · UE 2 📄</li></ul></div>
+        <span class="k">Estado</span><div class="v"><span class="state info">◆ tripolar americano, China convergindo</span></div>
+        <span class="k">Datas</span><div class="v">2027 (Stargate pleno, Grok 5, SSI entregar ou implodir) · <strong>2030</strong> (meta chinesa de liderança, plano de 2017) 🧠</div>
+        <span class="k">Sentinelas</span><div class="v"><ul><li>CXMT produzir HBM3E em volume ⚠️</li><li>Lab chinês no top-3 do índice AA</li><li>IPO da Anthropic / valuation OpenAI</li></ul></div>
+        <span class="k">Alimentado por</span><div class="v"><span class="chips"><span class="chip w3">C01</span><span class="chip w3">C04</span><span class="chip w3">C05</span><span class="chip w2">C07</span><span class="chip w2">C12</span></span></div>
+      </div></article>
+
+    <article class="outcome"><div class="hd"><span class="id">D2</span><h3>🧱 Bifurcação do stack global</h3></div>
+      <p class="def">Dois ecossistemas incompatíveis: CUDA / TSMC / HBM-Coreia / GenBank ↔ Ascend / SMIC / CXMT / CNCB.</p>
+      <div class="kv">
+        <span class="k">Indicador</span><div class="v"><ul><li>Share da Nvidia na China: <strong>95 % → ~8 %</strong> 📄</li><li>Lista BCC final (BIOSECURE) até dez/26 ✅</li><li>Países com "escolha dupla" (Brasil: UFRN vs RJ-Huawei) 📄</li></ul></div>
+        <span class="k">Estado</span><div class="v"><span class="state warn">▲ avançada em chips e genoma; parcial em modelos</span></div>
+        <span class="k">Datas</span><div class="v">jul/27 (máquina RJ) · fim/27 (UFRN) · dez/27 (AI Act alto risco) · ago/28 (AI Act produtos)</div>
+        <span class="k">Sentinelas</span><div class="v"><ul><li>Fornecedor de GPU da UFRN escolhido</li><li>Adesões à WAICO (organização de cooperação em IA proposta pela China) ✅</li><li>Open-weight chinês rodando em nuvem americana (interdependência residual)</li></ul></div>
+        <span class="k">Alimentado por</span><div class="v"><span class="chips"><span class="chip w3">C01</span><span class="chip w3">C06</span><span class="chip w3">C07</span><span class="chip w2">C03</span><span class="chip w2">C11</span><span class="chip w2">C12</span></span></div>
+      </div></article>
+
+    <article class="outcome"><div class="hd"><span class="id">D3</span><h3>⚡ Renuclearização via IA</h3></div>
+      <p class="def">A demanda elétrica da IA reabre o ciclo do combustível — e normaliza o enriquecimento.</p>
+      <div class="kv">
+        <span class="k">Indicador</span><div class="v"><ul><li><strong>9,8 GW</strong> nucleares contratados por big techs (13 acordos) 📄</li><li>HALEU: US$ 900 mi (DOE) 📄</li><li>Novos enriquecedores: Saudi 5–20 % 📄, Coreia do Sul negociando 📄, Brasil 70 % de Angra 📄</li></ul></div>
+        <span class="k">Estado</span><div class="v"><span class="state good">● dinheiro indo para reatores, não ogivas</span></div>
+        <span class="k">Datas</span><div class="v">2027 (TMI-1 religado; SPARC 1º plasma) · 2028 (Helion 50 MW ⚠️) · <strong>2030</strong> (Kairos 500 MW; reator lunar EUA; BEST China) · 2032–35 (TerraPower 4 GW)</div>
+        <span class="k">Sentinelas</span><div class="v"><ul><li>1º SMR comercial operando nos EUA</li><li>Acordo 123 saudita em vigor sem Protocolo Adicional</li><li>Rokkasho (Japão) / Coreia do Sul obtendo enriquecimento</li></ul></div>
+        <span class="k">Alimentado por</span><div class="v"><span class="chips"><span class="chip w3">C02</span><span class="chip w3">C05</span><span class="chip w3">C08</span><span class="chip w2">C01</span><span class="chip w2">C07</span><span class="chip w2">C09</span></span></div>
+      </div></article>
+
+    <article class="outcome"><div class="hd"><span class="id">D4</span><h3>🎯 Militarização da IA e da órbita sem controle de armas</h3></div>
+      <p class="def">O ciclo sensor-tiro encurta enquanto os tratados morrem.</p>
+      <div class="kv">
+        <span class="k">Indicador</span><div class="v"><ul><li>Tratados numéricos EUA–Rússia vigentes: <strong>0</strong> (desde fev/26) 📄</li><li>Contratos IA–Pentágono: 4 × US$ 200 mi (jul/25); 7 classificados (mai/26) ✅</li><li>HEU iraniano sem contabilidade: <strong>440,9 kg</strong> a 60 % 📄</li></ul></div>
+        <span class="k">Estado</span><div class="v"><span class="state crit">■ linha vermelha contratual perdeu na apelação (set/26); canal EUA–China para incidentes de IA (set/26) é o 1º freio diplomático</span></div>
+        <span class="k">Datas</span><div class="v"><strong>2027</strong> (centenário PLA) · <strong>2028</strong> (Golden Dome) · NC3+IA: sem data, sem tratado</div>
+        <span class="k">Sentinelas</span><div class="v"><ul><li>Acordo vinculante EUA–China sobre IA em NC3</li><li>AIEA de volta a Isfahan; texto do "enriquecimento zero"</li><li>Revisão da Directive 3000.09 (armas autônomas) 🧠</li><li>Desfecho judicial final Anthropic × DoD ✅</li></ul></div>
+        <span class="k">Alimentado por</span><div class="v"><span class="chips"><span class="chip w3">C08</span><span class="chip w3">C09</span><span class="chip w3">C11</span><span class="chip w2">C01</span><span class="chip w2">C02</span><span class="chip w2">C03</span><span class="chip w2">C10</span></span></div>
+      </div></article>
+
+    <article class="outcome"><div class="hd"><span class="id">D5</span><h3>👁️ Regime global de dados humanos</h3></div>
+      <p class="def">Quem governa os dados das populações — do genoma ao deepfake.</p>
+      <div class="kv">
+        <span class="k">Indicador</span><div class="v"><ul><li>Genomas estatais: CNCB <strong>&gt;100 PB</strong> (1.272 instituições) ✅ · GeneBank 13 PB ✅</li><li>% população com DNA no Estado: Tibete <strong>25–33 %</strong> ✅; Y-STR 35–70 mi homens ✅</li><li>Leis: HGR 2019 · Biossegurança 2021 · DSL/PIPL 2021 · BIOSECURE dez/25 · 1260H (188) ago/26 · AI Act · Res. TSE 23.610</li></ul></div>
+        <span class="k">Estado</span><div class="v"><span class="state warn">▲ assimetria: China importa e não exporta; Ocidente responde com listas</span></div>
+        <span class="k">Datas</span><div class="v"><strong>04/out/26</strong> (eleição BR sob tese de deepfake) · dez/26 (lista BCC) · dez/27 (AI Act alto risco)</div>
+        <span class="k">Sentinelas</span><div class="v"><ul><li>Minuta HGR de mai/26 (depósito obrigatório no CNCB) virar norma ✅</li><li>BINSA no Senado americano ✅</li><li>PL 2338 votado no plenário da Câmara ⚠️</li></ul></div>
+        <span class="k">Alimentado por</span><div class="v"><span class="chips"><span class="chip w3">C03</span><span class="chip w3">C06</span><span class="chip w3">C10</span><span class="chip w3">C11</span><span class="chip w2">C08</span></span></div>
+      </div></article>
+
+    <article class="outcome"><div class="hd"><span class="id">D6</span><h3>🌍 Acesso: quem fica dentro e quem fica fora</h3></div>
+      <p class="def">A IA de fronteira encarece o hardware de todos; a difusão vem barata da China ou cara dos EUA.</p>
+      <div class="kv">
+        <span class="k">Indicador</span><div class="v"><ul><li>DRAM +172 % (2025); memória 35 % do PC 📄</li><li>Smartphones 2026: <strong>−12,9 %</strong> unidades, +14,2 % ASP (IDC) ✅ · PCs −10 % 📄</li><li>AI+ China: 70 % (2027) → 90 % (2030) ✅ · Sabiá 4: R$ 206 vs R$ 590 (Opus 4.8) na mesma bancada 📄</li></ul></div>
+        <span class="k">Estado</span><div class="v"><span class="state crit">■ 2026–27 é o vale; não há "esperar cair"</span></div>
+        <span class="k">Datas</span><div class="v">2027 (Micron alívio) · 2028 (Samsung; fab Micron Japão 3T28) · <strong>2030</strong> (SK Hynix)</div>
+        <span class="k">Sentinelas</span><div class="v"><ul><li>Preço spot DDR5/LPDDR5X</li><li>CXMT entregando HBM (alívio pelo lado chinês)</li><li>Fim dos 128 GB; iPhone Duo a US$ 1.999 e alta de preço do 18 Pro (09/09) ✅</li></ul></div>
+        <span class="k">Alimentado por</span><div class="v"><span class="chips"><span class="chip w3">C07</span><span class="chip w3">C12</span><span class="chip w2">C01</span><span class="chip w2">C05</span><span class="chip w2">C06</span><span class="chip w2">C11</span></span></div>
+      </div></article>
+  </div>
+</section>
+
+<!-- ===================== LINHA DO TEMPO ===================== -->
+<section id="linha">
+  <div class="sec-head">
+    <span class="eyebrow">6 · Relógio dos desfechos</span>
+    <h2>⏱️ 2026 → 2049: onde cada desfecho tem data marcada</h2>
+    <p class="lede">O eixo é o relógio chinês; os marcos dos outros atores são reações a ele. Etiqueta D = desfecho que o marco move.</p>
+  </div>
+  <div class="timeline"><div class="tl">
+    <div class="col"><div class="yr now">2026<small>set–dez · revisto em 17/11</small></div><div class="ms">
+      <div class="m ok"><span class="d">D6</span><span>09/set: dobrável iPhone Duo (US$ 1.999) + 18 Pro<span class="st">✅ lançados · pré-venda 16/out</span></span></div>
+      <div class="m unc"><span class="d">D4</span><span>28/set: Starship voo 14 atinge a órbita<span class="st">✅ refueling ainda pendente</span></span></div>
+      <div class="m ok"><span class="d">D5</span><span>04 e 25/out: eleição sob a tese de deepfake — Lula reeleito (51,79 %)<span class="st">✅ TSE</span></span></div>
+      <div class="m unc"><span class="d">D4</span><span>13/nov: AIEA segue sem acesso ao HEU e à usina IFEP<span class="st">✅ relatório AIEA</span></span></div>
+      <div class="m ok"><span class="d">D5</span><span>dez: lista final de "empresas de biotecnologia de preocupação" (BIOSECURE)<span class="st">✅</span></span></div>
+      <div class="m unc"><span class="d">D1</span><span>SSI entregar modelo; IPO Anthropic<span class="st">📄 ⚠️</span></span></div>
+    </div></div>
+    <div class="col"><div class="yr">2027<small>centenário do PLA</small></div><div class="ms">
+      <div class="m goal"><span class="d">D4</span><span>01/ago: PLA "intelligentizado" — meta do centenário<span class="st">✅ Jamestown</span></span></div>
+      <div class="m goal"><span class="d">D6</span><span>AI+ 70 % de penetração em terminais/agentes<span class="st">✅ Conselho de Estado</span></span></div>
+      <div class="m ok"><span class="d">D3</span><span>TMI-1 "Crane" religado (835 MW, Microsoft)<span class="st">📄</span></span></div>
+      <div class="m ok"><span class="d">D3</span><span>SPARC (CFS) — 1º plasma<span class="st">📄</span></span></div>
+      <div class="m ok"><span class="d">D2</span><span>jul: máquina Huawei/iFlytek no RJ · fim: UFRN 7.200 PFLOPS<span class="st">📄 GPU a definir ⚠️</span></span></div>
+      <div class="m ok"><span class="d">D5</span><span>02/dez: AI Act — obrigações de alto risco (Anexo III)<span class="st">📄</span></span></div>
+      <div class="m unc"><span class="d">D4</span><span>Artemis III reformulada — acoplagem em LEO<span class="st">📄</span></span></div>
+      <div class="m ok"><span class="d">D6</span><span>Micron: aperto de RAM começa a aliviar<span class="st">📄</span></span></div>
+    </div></div>
+    <div class="col"><div class="yr">2028<small>Lua americana · Golden Dome</small></div><div class="ms">
+      <div class="m unc"><span class="d">D4</span><span>Pouso lunar Artemis (2 janelas) — antes do fim do mandato<span class="st">📄 ⚠️ cronograma apertado</span></span></div>
+      <div class="m unc"><span class="d">D4</span><span>Golden Dome operacional (US$ 185 bi)<span class="st">📄</span></span></div>
+      <div class="m ok"><span class="d">D5</span><span>02/ago: AI Act — produtos regulados<span class="st">📄</span></span></div>
+      <div class="m unc"><span class="d">D3</span><span>Helion 50 MW (Microsoft) · dez: SR-1 nuclear-elétrica a Marte<span class="st">📄 ⚠️ agressivo</span></span></div>
+      <div class="m ok"><span class="d">D6</span><span>Samsung: fim do aperto; fab Micron Japão (3T28)<span class="st">📄</span></span></div>
+      <div class="m goal"><span class="d">D6</span><span>IDC: 70 % dos smartphones com GenAI<span class="st">🧠 projeção 2024</span></span></div>
+    </div></div>
+    <div class="col"><div class="yr">2030<small>fim do 15º Plano</small></div><div class="ms">
+      <div class="m goal"><span class="d">D1</span><span>China "líder mundial em IA" (plano de 2017)<span class="st">🧠</span></span></div>
+      <div class="m goal"><span class="d">D6</span><span>AI+ 90 % · economia digital 12,5 % do PIB · 25 % não fóssil<span class="st">✅ 15º Plano</span></span></div>
+      <div class="m goal"><span class="d">D4</span><span>Pouso lunar tripulado chinês (LM-10 / Mengzhou / Lanyue)<span class="st">📄</span></span></div>
+      <div class="m ok"><span class="d">D3</span><span>Reator lunar EUA (NSTM-3) · Kairos 500 MW (Google) · Mistral 1 GW<span class="st">📄</span></span></div>
+      <div class="m unc"><span class="d">D3</span><span>"Lâmpada acesa por fusão" (BEST, Hefei)<span class="st">📄 ⚠️</span></span></div>
+      <div class="m ok"><span class="d">D6</span><span>SK Hynix: fim da crise de memória · 6G comercial<span class="st">📄 🧠</span></span></div>
+    </div></div>
+    <div class="col"><div class="yr">2035<small>modernização básica</small></div><div class="ms">
+      <div class="m goal"><span class="d">D1</span><span>Economia inteligente "plenamente estabelecida" (AI+)<span class="st">✅</span></span></div>
+      <div class="m goal"><span class="d">D4</span><span>Defesa e forças armadas "basicamente modernizadas"<span class="st">✅ Jamestown</span></span></div>
+      <div class="m goal"><span class="d">D2</span><span>PIB per capita de "país moderadamente desenvolvido"<span class="st">🧠 meta implícita (Xi, 2020)</span></span></div>
+      <div class="m ok"><span class="d">D3</span><span>TerraPower Natrium 4 GW (Meta) 2032–35 · ITER 2034<span class="st">📄</span></span></div>
+    </div></div>
+    <div class="col"><div class="yr">2049<small>centenário da RPC</small></div><div class="ms">
+      <div class="m goal"><span class="d">D1</span><span>"País socialista moderno e forte em todos os aspectos"<span class="st">🧠 2º objetivo centenário</span></span></div>
+      <div class="m goal"><span class="d">D4</span><span>Exército "de classe mundial"<span class="st">✅ Jamestown</span></span></div>
+      <div class="m unc"><span class="d">D3</span><span>ITER operação plena (2039) → fusão comercial?<span class="st">📄 ⚠️</span></span></div>
+      <div class="m unc"><span class="d">D5</span><span>Cenário: expansão pactuada ou fragmentação — ver quadrantes<span class="st">🔮</span></span></div>
+    </div></div>
+  </div></div>
+  <div class="tl-legend"><span><i style="background:var(--good)"></i>contratado / agendado</span><span><i style="background:var(--warn)"></i>incerto ou em disputa</span><span><i style="background:var(--fam-rec)"></i>meta declarada (China)</span></div>
+</section>
+
+<!-- ===================== CENÁRIOS ===================== -->
+<section id="cenarios">
+  <div class="sec-head">
+    <span class="eyebrow">7 · Tema 11 integrado</span>
+    <h2>🔮 Cenários: dois eixos, quatro mundos</h2>
+    <p class="lede">Eixo horizontal = D2 (o stack global se mantém interdependente ou bifurca). Eixo vertical = C11 (as regras funcionam ou colapsam). Não atribuo probabilidades — atribuo <strong>sentinelas</strong>.</p>
+  </div>
+  <div class="quad">
+    <div class="axis-top"><span>◀ interdependência mantida</span><span>bifurcação profunda ▶</span></div>
+    <div class="axis-y">regras colapsam ◀ · ▶ regras funcionam</div>
+    <article class="q q1"><span class="tag">Quadrante 1 · regras + interdependência</span><h3>🌅 Expansão pactuada</h3><p>Tratado sobre IA em NC3, AIEA de volta ao Irã, RAM normaliza em 2028, fusão e reator lunar chegam, IA científica (GeneBench/MedChemBench) comprime décadas de biologia. O "caminho da motorização" do panorama.</p><ul><li>Puxa para cá: acordo EUA–China sobre NC3 · Mistral+Microsoft+modelos chineses no mesmo rack · SPARC com ganho líquido</li></ul></article>
+    <article class="q q2"><span class="tag">Quadrante 2 · regras + bifurcação</span><h3>🧊 Guerra fria tecnológica estável</h3><p>Dois stacks completos, dissuasão funciona, custo alto para todos. Brasil e Europa escolhem lado (ou pagam dois). Latência nuclear contida por acordos 123 e salvaguardas.</p><ul><li>Puxa para cá: BIOSECURE + 1260H aplicados · UFRN com GPU americana e RJ com Ascend · WAICO com adesões do Sul Global</li></ul></article>
+    <article class="q q4"><span class="tag">Quadrante 4 · colapso + interdependência</span><h3>🌀 Multipolaridade caótica</h3><p>Sem regras mas com tecnologia fluindo: proliferação latente (Saudi, Coreia do Sul, Japão), open-weight militarizado por atores não estatais, deepfakes sem freio, Estados fracos comprando vigilância pronta.</p><ul><li>Puxa para cá: acordo 123 sem Protocolo Adicional replicado · Kimi/DeepSeek em ciberataques automatizados · PL 2338 morto</li></ul></article>
+    <article class="q q3"><span class="tag">Quadrante 3 · colapso + bifurcação</span><h3>🔥 Escalada acelerada</h3><p>IA dentro do comando nuclear sem tratado, Taiwan 2027–30, ciberataque a infraestrutura nuclear/energética, HEU iraniano sem rastreio, Golden Dome × silos chineses. O "caminho da autodestruição" do panorama.</p><ul><li>Puxa para cá: New START sem sucessor por 2 anos · PLAAF strike-planning em exercício real · "IA que raramente diz não" no Pentágono ✅ (The Intercept, 08/09)</li></ul></article>
+    <div class="axis-x"><span>◀ interdependência mantida</span><span>bifurcação profunda ▶</span></div>
+  </div>
+
+  <div class="sent">
+    <h3>📡 Painel de sentinelas — status revisto em 17/11/2026</h3>
+    <table>
+      <thead><tr><th>Sentinela</th><th>Se acontecer…</th><th>Desfecho que move</th><th>Status hoje</th></tr></thead>
+      <tbody>
+        <tr><td>Acordo vinculante EUA–China sobre IA em NC3</td><td>puxa para Q1/Q2 (regras)</td><td>D4</td><td><span class="state info">◆ canal EUA–China p/ incidentes de IA (26/set); China recusa negociar arsenais (16/nov) ✅</span></td></tr>
+        <tr><td>AIEA de volta a Isfahan / 440,9 kg contabilizados</td><td>puxa para Q1</td><td>D4 · D3</td><td><span class="state crit">■ ainda sem acesso — relatório AIEA de 13/nov ✅</span></td></tr>
+        <tr><td>CXMT entrega HBM3E em volume</td><td>quebra o gargalo chinês → acelera D1 e D2</td><td>D1 · D2 · D6</td><td><span class="state warn">▲ HBM3 com ~50 % de rendimento; HBM3E só em 2027 ✅</span></td></tr>
+        <tr><td>Starship demonstra refueling orbital</td><td>abre Lua/Marte e data centers orbitais</td><td>D3 · D4</td><td><span class="state warn">▲ órbita atingida em 28/set; refueling ainda não ✅</span></td></tr>
+        <tr><td>UFRN escolhe fornecedor de GPU</td><td>Brasil declara stack</td><td>D2</td><td><span class="state warn">▲ "a definir" (sem atualização verificada) 📄</span></td></tr>
+        <tr><td>Decisão final Anthropic × Pentágono</td><td>define se "armas autônomas + vigilância doméstica" vira linha vermelha ou exceção</td><td>D4 · D5</td><td><span class="state crit">■ apelação manteve a designação (set/26) ✅</span></td></tr>
+        <tr><td>Minuta HGR (mai/26) vira norma</td><td>fecha de vez o genoma chinês</td><td>D5 · D2</td><td><span class="state warn">▲ em consulta ✅</span></td></tr>
+        <tr><td>TSE aplica a tese de deepfake no 1º turno</td><td>jurisprudência exportável</td><td>D5</td><td><span class="state good">● eleição concluída em 25/out ✅</span></td></tr>
+        <tr><td>TMI-1 religado no prazo (2027)</td><td>valida o modelo "big tech paga reator"</td><td>D3</td><td><span class="state good">● contratado 📄</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="lens">
+    <div><b>🧠 Lente 1 — "AI 2027" (Kokotajlo et al., 2025)</b>Corrida EUA–China para IA sobre-humana até 2027–28, com dois finais (desaceleração vs. corrida). Especulativo; útil como <em>stress test</em> do Q3.</div>
+    <div><b>🧠 Lente 2 — "Superintelligence Strategy"/MAIM (Hendrycks, Schmidt, Wang, 2025)</b>Propõe dissuasão por sabotagem mútua de projetos de IA desestabilizadores — a lógica do New START aplicada a data centers. Encaixa em Q2.</div>
+    <div><b>🧠 Lente 3 — "Machines of Loving Grace" (Amodei, 2024)</b>Décadas de progresso biomédico comprimidas em anos — a versão otimista do Q1, e a mais relevante para a saúde.</div>
+    <div><b>🧠 Lente 4 — Emprego (FMI, 2024)</b>≈40 % dos empregos mundiais expostos à IA; o efeito distributivo (D6) é o que decide se Q1 é estável politicamente.</div>
+  </div>
+</section>
+
+<!-- ===================== PROJEÇÃO ===================== -->
+<section id="projecao">
+  <div class="sec-head">
+    <span class="eyebrow">8 · Mapa geopolítico atual e projetado</span>
+    <h2>🌍 2026 → 2031 → 2036 → 2046: se a situação vigente persistir</h2>
+    <p class="lede">Extrapolação de tendências sob <strong>premissas explícitas</strong> — não é previsão. A confiança cai com o horizonte: <span class="state good">● 2031 média</span> <span class="state warn">▲ 2036 baixa</span> <span class="state crit">■ 2046 narrativa</span>. O mapa colore o <strong>alinhamento de stack</strong> (chips + modelos + nuvem + dados) e marca arsenal, latência nuclear e laboratórios de fronteira.</p>
+  </div>
+  <figure style="margin:0 0 18px">
+    <img src="assets/img/360x-mapa-geopolitico-2026-2046.webp" width="2400" height="1440" loading="lazy" alt="Quatro mapas-múndi (2026, 2031, 2036, 2046) coloridos por alinhamento de stack tecnológico, com marcadores de arsenal nuclear, latência nuclear e laboratórios de IA de fronteira" style="width:100%;height:auto;border:1px solid var(--line);background:#fcfcfb">
+    <figcaption class="small muted" style="margin-top:6px">Azul = núcleo do stack EUA · laranja = núcleo do stack China (hachurado = compute importado da China) · laranja-escuro = periferia inclinada à China · verde = hedging/dual · grafite = sem alinhamento relevante. ● arsenal · ◇ enriquecimento/latência · ★ laboratório de fronteira · ☆ quase-fronteira/polo de compute. Classes de periferia e hedging são julgamento analítico.</figcaption>
+  </figure>
+
+  <div class="method" style="margin-bottom:18px">
+    <h3>📐 Premissas de "persistência" (o que está sendo extrapolado)</h3>
+    <ol>
+      <li><strong>Export controls</strong> americanos mantidos; Pequim mantém o veto a chips americanos → a bifurcação em chips continua ✅📄.</li>
+      <li><strong>Nenhum tratado novo</strong>: New START sem sucessor; nada vinculante sobre IA em comando nuclear 📄🧠.</li>
+      <li>China executa planos na <strong>taxa histórica</strong> do "Made in China 2025": bem-sucedida em VE/renováveis, "mista" em chips (USSC) ✅ → entrega ~2/3 das metas, chips sempre atrasados.</li>
+      <li>Capital privado americano em IA permanece <strong>≥10×</strong> o chinês 📄; depois de 2030 o gargalo americano vira <strong>energia</strong>, não chips.</li>
+      <li>Crise de memória termina em <strong>2028–30</strong> como dizem os fabricantes 📄; nenhuma nova crise equivalente.</li>
+      <li><strong>Sem guerra EUA–China</strong> (Taiwan) — "persistir" implica status quo; se houver guerra, o mapa é o do quadrante Q3, não este.</li>
+      <li>Europa segue regulada e subcapitalizada; Brasil segue na "escolha dupla" sem marco legal; Golfo e Coreia do Sul obtêm enriquecimento por acordos 123/renegociação 📄.</li>
+      <li>Rússia permanece maior enriquecedora (29 mi SWU) e cliente de compute chinês 📄; Irã sem verificação da AIEA 📄.</li>
+    </ol>
+  </div>
+
+  <div class="matrix-wrap"><table class="mini" style="min-width:900px;font-size:13.5px">
+    <thead><tr><th style="width:9%">Desfecho</th><th style="width:22%">2026 · atual ✅</th><th style="width:23%">2031 · +5 anos ●</th><th style="width:23%">2036 · +10 anos ▲</th><th style="width:23%">2046 · +20 anos ■</th></tr></thead>
+    <tbody>
+      <tr><td><strong>D1</strong> 🏁 Fronteira</td><td>Tripolar EUA; China a 2,7 %; UE nicho; 50 vs 2 modelos notáveis.</td><td>EUA mantêm fronteira fechada; China empata em open-weight; 5–6 labs de fronteira (3 EUA, 2–3 China, 1 UE); 1ª descoberta médica atribuída a IA científica ⚠️.</td><td>Paridade funcional; vantagem decidida por energia e dados; China "economia inteligente" (AI+ 2035); EUA lideram IA científica/defesa. "Liderança" vira setorial.</td><td>Fronteira por domínio: EUA (ciência, defesa, finanças) × China (manufatura, robótica, difusão). "Líder" perde sentido único.</td></tr>
+      <tr><td><strong>D2</strong> 🧱 Bifurcação</td><td>Chips e genoma bifurcados; modelos parcialmente (open-weight chinês roda em GPU americana); Brasil nos dois stacks.</td><td>Dois stacks de nuvem completos; CXMT com HBM 1 geração atrás; lista BCC aplicada; África e Ásia Central na periferia chinesa; UFRN (GPU ocidental ⚠️) + RJ (Ascend) operando.</td><td>Litografia chinesa avançada (EUV doméstico ⚠️); Indonésia/Tailândia/Egito no stack chinês por preço; cinturão de hedging (Brasil, Índia, Golfo, Turquia) vira árbitro e cobra por isso.</td><td>Bifurcação = ordem normal; hedging institucionalizado; Brasil quase-fronteira regional <em>se</em> unir energia + dados + stack (condicional).</td></tr>
+      <tr><td><strong>D3</strong> ⚡ Renuclearização</td><td>9,8 GW contratados; HALEU US$ 900 mi; Saudi 5–20 % sem Protocolo Adicional; Coreia do Sul negociando.</td><td>TMI-1, Kairos e 1ºs SMRs operando; HALEU doméstico nos EUA; SPARC com ganho líquido ⚠️; Saudi enriquecendo; Coreia do Sul com direito negociado ⚠️; INB atende Angra.</td><td>SMRs em escala (TerraPower 4 GW); reator lunar operando; fusão piloto (ARC/BEST ⚠️); ~10 Estados com enriquecimento/latência; HALEU com dois fornecedores (Centrus/Urenco × Rosatom/CNNC).</td><td>Nuclear ≈ 25–30 % da eletricidade de data centers ⚠️; fusão comercial inicial se ITER (2039) e ARC entregarem ⚠️; "bomba virtual" como norma em ~10 Estados.</td></tr>
+      <tr><td><strong>D4</strong> 🎯 Militarização</td><td>0 tratados; IA em seleção de alvos (Epic Fury; PLAAF); Golden Dome 2028; 440,9 kg HEU sem contabilidade.</td><td>Planejamento de ataque por IA rotinizado nos dois lados; Golden Dome parcial em órbita; China ~1.000 ogivas 🧠; Irã com HEU não contabilizado há 5 anos; linha vermelha "armas autônomas" só contratual.</td><td>PLA "basicamente modernizado" (2035, meta declarada); paridade em ICBMs 🧠; IA em NC3 dos dois lados; órbita militarizada com resposta chinesa; 10 anos sem tratado = risco estrutural máximo.</td><td>China "exército de classe mundial" (2049, meta declarada); dissuasão tripolar sem tratado por 20 anos; enxames autônomos como arma padrão; C2 com IA pleno.</td></tr>
+      <tr><td><strong>D5</strong> 👁️ Dados humanos</td><td>CNCB >100 PB fechado; BIOSECURE/1260H; AI Act adiado; TSE deepfake; Tibete 25–33 % com DNA.</td><td>Depósito obrigatório no CNCB; BINSA em vigor; AI Act pleno (2028); Brasil com TSE + ANPD, marco legal ⚠️; modelos biológicos treinados em bases fechadas dos dois lados.</td><td>Regimes regionais consolidados; genoma de populações inteiras em bases estatais (China) e privadas (EUA); medicina de precisão bifurcada; deepfake governado por rótulo + responsabilidade de plataforma (modelo TSE/AI Act exportado).</td><td>Dados humanos como território; "cidadania de dados"; genoma de ~1/3 da humanidade em bases estatais/corporativas ⚠️.</td></tr>
+      <tr><td><strong>D6</strong> 🌍 Acesso</td><td>DRAM +172 %; smartphones −12,9 %; AI+ 70 % (2027); Sabiá 4 a 1/3 do custo.</td><td>RAM normalizada; GenAI em >80 % dos smartphones 🧠; AI+ 90 %; 6G começa; brecha migra de hardware para <strong>energia</strong>; Sul Global com difusão chinesa barata.</td><td>Divisão por eletricidade: quem tem energia barata roda IA — Brasil (hidro + nuclear) com vantagem potencial <em>se</em> tiver stack; smartphone cede a agentes/wearables ⚠️.</td><td>Acesso definido por energia + alinhamento; Sul Global bifurcado pela infraestrutura instalada em 2026–36.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="readouts" style="margin-top:18px">
+    <div class="readout"><div class="k">Desfecho modal sob persistência</div><div class="v">🧊 Q2 — guerra fria tecnológica estável</div><div class="s">Dois stacks, dissuasão funciona, custo alto, hedging como profissão. É o que as premissas produzem quando nada quebra.</div></div>
+    <div class="readout"><div class="k">Cauda de risco</div><div class="v">🔥 Q3 — escalada</div><div class="s">20 anos sem tratado + IA em NC3 + órbita militarizada + HEU sem rastreio = a persistência <em>acumula</em> risco mesmo sem ninguém decidir escalar.</div></div>
+    <div class="readout"><div class="k">O que quebra a persistência</div><div class="v">6 pontos de ruptura</div><div class="s">Taiwan · CXMT entregar HBM · tratado NC3 · colapso energético de data centers · descontinuidade tipo "AI 2027" · escolha de stack do Brasil/Índia.</div></div>
+  </div>
+
+  <h3 style="margin:26px 0 10px">🔭 O que muda no mapa, painel a painel</h3>
+  <div class="chains">
+    <article class="chain"><div class="hd"><span class="id">2031</span><h3>A bifurcação vira infraestrutura</h3></div><ul class="ev"><li>África subsaariana e Ásia Central passam de "sem alinhamento" para periferia chinesa (telecom + compute barato) 🧠.</li><li>Arábia Saudita ganha ◇ (enriquecendo); Coreia do Sul ganha ◇ (direito negociado ⚠️).</li><li>Emirados viram ☆ (polo de compute com chips americanos) 🧠.</li><li>Brasil permanece verde — o único país operando os dois stacks.</li></ul></article>
+    <article class="chain"><div class="hd"><span class="id">2036</span><h3>Dois mundos funcionando</h3></div><ul class="ev"><li>Indonésia, Tailândia, Egito, Argélia, África do Sul e Peru migram para a periferia chinesa por preço e infraestrutura já instalada.</li><li>Cinturão de hedging encolhe para Brasil, Índia, Golfo, Turquia, Malásia, Singapura — e passa a cobrar por escolher.</li><li>Turquia ganha ◇ (latência) ⚠️; Índia vira ☆ (stack próprio parcial).</li><li>Europa: azul, mas "soberania de inferência" (1 GW Mistral) sem fronteira própria.</li></ul></article>
+    <article class="chain"><div class="hd"><span class="id">2046</span><h3>Véspera do centenário</h3></div><ul class="ev"><li>Mapa quase congelado: a infraestrutura instalada em 2026–36 decide o alinhamento por décadas.</li><li>Brasil ganha ☆ <em>condicional</em>: energia (hidro + nuclear) + dados em PT-BR + um stack escolhido.</li><li>Egito ganha ◇ ⚠️ (Dabaa + ambição regional); Irã continua ◇ indeterminado sem AIEA.</li><li>Dissuasão tripolar sem tratado = o "desfecho objetivo" mais perigoso do conjunto, e o mais provável sob persistência.</li></ul></article>
+    <article class="chain"><div class="hd"><span class="id">🩺</span><h3>Leitura clínica da projeção</h3></div><p>Trate como <strong>prognóstico sem intervenção</strong>: o curso natural da doença. Cada sentinela do §7 é um exame de controle; cada ponto de ruptura é uma intervenção que muda o prognóstico. A projeção serve para decidir <em>onde intervir</em>, não para acreditar nela.</p></article>
+  </div>
+</section>
+
+<!-- ===================== DOSSIÊS ===================== -->
+<section id="dossies">
+  <div class="sec-head"><span class="eyebrow">9 · Codificação aberta</span><h2>📂 Dossiês por tema</h2>
+  <p class="lede">Os dossiês completos — evidências, códigos dominantes, para onde cada tema empurra o sistema e a atualização de 17/11 — estão na página <a href="temas.html">12 Temas</a>.</p></div>
+  <div class="tlinks"><a href="temas.html#t01"><span>🤖</span><b>T01</b> Guerra das IAs</a><a href="temas.html#t02"><span>🇨🇳</span><b>T02</b> Estratégia chinesa de IA</a><a href="temas.html#t03"><span>🧬</span><b>T03</b> Coleta de DNA na China</a><a href="temas.html#t04"><span>🇪🇺</span><b>T04</b> Europa na corrida da IA</a><a href="temas.html#t05"><span>🇧🇷</span><b>T05</b> Plano Brasileiro de IA</a><a href="temas.html#t06"><span>💾</span><b>T06</b> Crise de chips e hardware</a><a href="temas.html#t07"><span>📱</span><b>T07</b> Smartphones até 2030</a><a href="temas.html#t08"><span>🚀</span><b>T08</b> Corrida espacial</a><a href="temas.html#t09"><span>☢️</span><b>T09</b> Energia nuclear e urânio</a><a href="temas.html#t10"><span>🎯</span><b>T10</b> IA e poder militar</a><a href="temas.html#t11"><span>🔮</span><b>T11</b> Cenários futuros</a><a href="temas.html#t12"><span>🏮</span><b>T12</b> Metas chinesas 2035 & 2049</a></div>
+</section>
+
+<!-- ===================== PARA VOCÊ ===================== -->
+<section id="cidadao">
+  <div class="you">
+    <h2>🧭 O que este mapa muda para o cidadão</h2>
+    <div><b>💾 Hardware (D6, M01)</b><p>A memória segue subindo no 4T26 e a oferta de PC DRAM deve cair em 2027: quem precisa de computador ou celular tende a fazer melhor negócio comprando com memória de sobra, sem esperar queda antes de 2027–28.</p></div>
+    <div><b>🧠 Uso profissional de IA (D1, T05)</b><p>Modelos em português já competem em tarefas jurídicas a uma fração do custo; em áreas críticas (saúde, direito, engenharia), toda saída de IA pede verificação humana e uma bancada própria de testes.</p></div>
+    <div><b>🗳️ Deepfake e eleições (D5)</b><p>Regra do TSE para explicar em casa: conteúdo sintético leva rótulo; simular pessoa (viva, morta ou fictícia) em propaganda é proibido; o rótulo não legaliza uso proibido.</p></div>
+    <div><b>🛡️ Golpes (D1, D3, T08)</b><p>“IPO da SpaceX”, “cotas de urânio”, “chips de IA” e “pré-IPO de laboratório” são os temas mais quentes — e por isso os mais usados em fraudes. Investimento só por instituição regulada pela CVM; retorno fixo prometido é sinal de golpe.</p></div>
+    <div><b>⚡ Política pública (D2, M10)</b><p>O Brasil tem energia, modelo em português e dois supercomputadores em stacks opostos — mas o marco legal (PL 2338) ainda espera parecer. Soberania sem regra vira fornecimento.</p></div>
+    <div><b>🔬 Ciência e saúde (Q1)</b><p>A IA científica (biologia, química medicinal) é onde o cenário otimista chega primeiro; universidades e hospitais-escola são a porta de entrada.</p></div>
+  </div>
+</section>
+
+<!-- ===================== EXTRAS ===================== -->
+<section id="extras">
+  <div class="sec-head">
+    <span class="eyebrow">10 · Nerdices, imagens e próximos passos</span>
+    <h2>🤓 Curiosidades, imagens sugeridas e aprofundamento</h2>
+  </div>
+  <div class="extras">
+    <div class="extra"><h3>🤓 Curiosidades do cruzamento</h3><ol>
+      <li>O mesmo modelo (Claude) que ajudou a selecionar alvos no Irã ✅ foi banido do Pentágono por recusar <em>armas autônomas</em> — e a designação foi mantida na apelação (set/26). A linha vermelha perdeu no tribunal, mas segue como posição pública.</li>
+      <li>A China retirou a meta de 70 % de chips do 15º Plano ✅ no mesmo semestre em que Pequim proibiu comprar chips americanos 📄 — abandonou o número e manteve a bifurcação.</li>
+      <li>A Thermo Fisher (americana) vendeu kits Y-STR ajustados a etnias chinesas uma semana antes do programa nacional de DNA ✅ — e agora BGI/MGI (chinesas) estão banidas de contratos federais americanos.</li>
+      <li>Um smartphone de 2026 encareceu por causa do ChatGPT (HBM) 📄; um reator de 1979 (TMI-1) vai religar por causa do Copilot 📄. A IA reprecifica átomos.</li>
+      <li>A Arábia Saudita conseguiu enriquecer sem Protocolo Adicional 📄 no mesmo ano em que o Irã perdeu as centrífugas — a "latência" migrou de Teerã para Riad.</li>
+      <li>O Brasil vai rodar um supercomputador na Entity List americana e outro com GPU "a definir" 📄 — é o único país que aparece nos dois stacks do mapa ao mesmo tempo.</li></ol></div>
+    <div class="extra"><h3>🖼️ Próximas imagens previstas</h3><ul>
+      <li><strong>Sankey</strong> Temas → Códigos → Desfechos com pesos reais (versão estática widescreen para slide).</li>
+      <li><strong>Triângulo Compute × Energia × Dados</strong> com EUA, China, UE, Brasil e Rússia plotados por capacidade.</li>
+      <li><strong>Relógio 2027–2049</strong> em anel, com marcos chineses no aro interno e reações ocidentais no externo.</li>
+      <li><strong>Quadrantes de cenário</strong> com as sentinelas como setas de força.</li>
+      <li><strong>Mapa-múndi da bifurcação</strong>: cor por stack de chips + hachura por regime de dados genômicos.</li>
+      <li><strong>Diagrama do ciclo do combustível</strong> mostrando onde entram data centers, HALEU e o acordo 123.</li></ul></div>
+    <div class="extra"><h3>📚 Aprofundamento</h3><ul>
+      <li>🧬 <strong>Genoma × IA</strong>: modelos de fundação biológicos e por que 100 PB fechados importam (e o que isso muda em farmacogenômica e medicina de precisão).</li>
+      <li>🎯 <strong>Semiologia da linha vermelha</strong>: o processo Anthropic × DoD cláusula por cláusula, e a Directive 3000.09.</li>
+      <li>🏮 <strong>15º Plano em números</strong>: tabela oficial vs. entrega do 14º (o que a China cumpre e o que não cumpre).</li>
+      <li>☢️ <strong>HALEU explicado</strong>: física, cadeia de suprimento e por que o Brasil (INB) entra no mapa.</li>
+      <li>📱 <strong>Guia de compra 2026–27</strong> sob a crise de RAM, com o lançamento do iPhone Duo incorporado.</li>
+      <li>🗳️ <strong>Manual antideepfake</strong> para a família (critérios do TSE + 5 testes caseiros).</li>
+      <li>🧊 <strong>Auditoria cruzada multi-IA</strong>: a mesma matriz 12×12 rodada em outros modelos para medir a divergência de pesos.</li></ul></div>
+  </div>
+</section>
+
+<!-- ===================== FONTES ===================== -->
+<section id="fontes">
+  <div class="sec-head">
+    <span class="eyebrow">11 · Verificação</span>
+    <h2>🔗 Fontes lidas em 08/09/2026 (novas) e base do panorama</h2>
+    <p class="lede small">✅ = lidas hoje para este mapa. As evidências marcadas 📄 vêm do documento <em>Panorama Geopolítico-Tecnológico — set/2026</em> publicado na página <a href="panorama.html">Panorama</a>, com suas ≈45 fontes.</p>
+  </div>
+  <div class="sources">
+    <h4>📡 Atualização de 17/11/2026</h4><ul><li><a href="https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/presidente-do-tse-anuncia-reeleicao-de-lula-e-faz-balanco-do-2o-turno-das-eleicoes-2026" rel="noopener">TSE — reeleição e balanço do 2º turno (26/10/2026)</a></li><li><a href="https://en.wikipedia.org/wiki/Starship_flight_14" rel="noopener">Wikipedia — Starship flight 14</a></li><li><a href="https://whbl.com/2026/11/13/iaea-increasingly-concerned-about-iranian-enrichment-plant-its-report-says/" rel="noopener">Reuters via WHBL — relatório AIEA (13/11/2026)</a></li><li><a href="https://www.nextgov.com/acquisition/2026/09/anthropic-lawsuit-supply-chain-risk/416255/" rel="noopener">Nextgov/FCW — apelação Anthropic × DoD (set/2026)</a></li><li><a href="https://www.pbs.org/newshour/world/china-and-u-s-agree-to-establish-ai-safety-channel-and-continue-trade-and-military-talks" rel="noopener">PBS — EUA e China criam canal de segurança de IA (26/09/2026)</a></li><li><a href="https://www.aljazeera.com/news/2026/11/16/why-is-china-not-keen-on-a-nuclear-treaty-with-us-and-russia" rel="noopener">Al Jazeera — China e o tratado nuclear (16/11/2026)</a></li><li><a href="https://www.trendforce.com/presscenter/news/20260930-13258.html" rel="noopener">TrendForce — contratos de memória no 4T26 (30/09/2026)</a></li><li><a href="https://www.trendforce.com/presscenter/news/20261111-13303.html" rel="noopener">TrendForce — estoques de PCs e memória para 2027 (11/11/2026)</a></li><li><a href="https://www.npr.org/2026/09/09/nx-s1-5961487/apple-duo-foldable-iphone-john-ternus" rel="noopener">NPR — Apple revela o dobrável iPhone Duo (09/09/2026)</a></li><li><a href="https://abcnews.com/Business/apple-set-announce-new-products/story?id=136299541" rel="noopener">ABC News — dobrável a partir de US$ 1.999</a></li><li><a href="https://www.the-substrate.net/p/where-chinas-ai-chip-supply-chain" rel="noopener">The Substrate — cadeia chinesa de chips de IA (jun/2026)</a></li><li><a href="https://ferramentabr.com.br/noticias/marco-legal-da-ia-no-brasil-em-que-pe-esta-o-pl-2338-e-o-que-ja-vale-hoje" rel="noopener">FerramentaBR — situação do PL 2338 (27/10/2026)</a></li><li><a href="https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2487262" rel="noopener">Câmara — ficha de tramitação do PL 2338/2023</a></li><li><a href="https://local-ai-zone.github.io/blog/October_2026_AI_Model_Updates.html" rel="noopener">Local AI Zone — atualizações de modelos de out/2026 (compilação independente)</a></li></ul>
+    <h4>🎯 IA e poder militar</h4><ul>
+      <li><a href="https://theintercept.com/2026/09/08/military-ai-weapons-contracts-openai-anthropic-google/">The Intercept — contratos IA × Pentágono (08/09/26)</a></li>
+      <li><a href="https://theintercept.com/2026/09/08/pentagon-openai-military-contract/">The Intercept — "IA que raramente diz não" (08/09/26)</a></li>
+      <li><a href="https://www.armytimes.com/news/pentagon-congress/2026/05/01/pentagon-freezes-out-anthropic-as-it-signs-deals-with-ai-rivals/">Army Times — Pentágono exclui a Anthropic (01/05/26)</a></li>
+      <li><a href="https://www.congress.gov/crs-product/IN12669">CRS — Disputa Pentágono–Anthropic sobre armas autônomas</a></li>
+      <li><a href="https://www.airandspaceforces.com/chinese-ai-agents-air-and-space-operations-strike-planning/">Air &amp; Space Forces — agentes de IA chineses; Claude na Epic Fury (CNAS)</a></li>
+      <li><a href="https://www.globalsecurity.org/wmd/library/news/china/2026/08/china-260803-globaltimes01.htm">Global Times via GlobalSecurity — sistema de planejamento de ataque da PLAAF (03/08/26)</a></li>
+      <li><a href="https://thediplomat.com/2026/08/chinas-military-is-now-using-ai-to-plan-strike-operations/">The Diplomat — PLA usa IA para planejar ataques (ago/26)</a></li>
+      <li><a href="https://jamestown.org/chinas-2027-goal-marks-the-plas-centennial-not-an-expedited-military-modernization/">Jamestown — meta 2027 do PLA</a></li>
+      <li><a href="https://www.rand.org/pubs/perspectives/PEA4574-1.html">RAND — perspectivas do PLA sobre IA</a></li></ul>
+    <h4>🧬 DNA e dados genômicos</h4><ul>
+      <li><a href="https://www.aspi.org.au/report/genomic-surveillance/">ASPI — Genomic surveillance (Y-STR)</a></li>
+      <li><a href="https://citizenlab.ca/research/mass-dna-collection-in-the-tibet-autonomous-region/">Citizen Lab — DNA em massa no Tibete 2016–22</a></li>
+      <li><a href="https://jamestown.org/beijings-asymmetric-securitization-of-genomic-data/">Jamestown — securitização assimétrica do genoma (25/06/26)</a></li>
+      <li><a href="https://www.ropesgray.com/en/insights/alerts/2026/01/biosecure-act-enacted">Ropes &amp; Gray — BIOSECURE Act sancionado (jan/26)</a></li>
+      <li><a href="https://economy.ac/news/2026/06/202606289325">The Economy — restrições a biotech chinesa; 1260H; BINSA (jun/26)</a></li>
+      <li><a href="https://www.hrw.org/news/2017/12/13/china-minority-region-collects-dna-millions">HRW — coleta de DNA em Xinjiang (2017)</a></li></ul>
+    <h4>🏮 Metas chinesas</h4><ul>
+      <li><a href="https://en.wikipedia.org/wiki/15th_Five-Year_Plan">15º Plano Quinquenal (aprovado 12/03/26) — metas</a></li>
+      <li><a href="https://merics.org/en/comment/chinas-next-five-year-bet-ai-self-reliance-diffusion-and-lot-hype">MERICS — a aposta do 15º Plano em IA</a></li>
+      <li><a href="https://www.ussc.edu.au/intelligent-everything-china-s-policy-to-supercharge-ai-adoption">USSC — "Intelligent everything" (AI+)</a></li>
+      <li><a href="https://english.www.gov.cn/policies/latestreleases/202508/27/content_WS68ae7976c6d0868f4e8f51a0.html">Conselho de Estado — diretriz AI+ (27/08/25)</a></li>
+      <li><a href="https://digichina.stanford.edu/work/forum-technology-in-chinas-15th-five-year-plan/">DigiChina — tecnologia no 15º Plano</a></li></ul>
+    <h4>📱 Smartphones</h4><ul>
+      <li><a href="https://my.idc.com/getdoc.jsp?containerId=prUS54017625">IDC — dobráveis +30 % em 2026; Apple (09/12/25)</a></li>
+      <li><a href="https://my.idc.com/getdoc.jsp?containerId=US53433726">IDC — Worldwide Smartphone Forecast 2026–2030 (mar/26)</a></li>
+      <li><a href="https://my.idc.com/getdoc.jsp?containerId=prUS52478124">IDC — GenAI em 70 % dos smartphones até 2028</a></li></ul>
+    <h4>📄 Base (panorama de 08/09, já no projeto)</h4><ul>
+      <li>Stanford AI Index 2026 · Fortune (Anthropic) · OpenAI (GPT-5.6) · TechCrunch (Mistral; ChatGPT &lt;50 %) · Carnegie (talento) · SIPRI Yearbook 2026 · House of Commons Library (guerra de 2026) · ISIS (AIEA/Irã) · ACA (acordo 123) · SMR Intel (acordos nucleares) · NASA/Space.com/SpaceDaily (Artemis/Starship) · Air &amp; Space Forces (Golden Dome) · IDC/Wikipedia (crise de memória) · MacRumors/Apple (evento 09/09) · MCTI/Brasil de Fato/Capital Digital (PBIA) · TSE/Aos Fatos (deepfake) · Canaltech (Sabiá 4) — lista completa com links no documento do projeto.</li></ul>
+  </div>
+</section>
+
+</main>
+<footer class="x-foot"><div class="x-foot-in">
+  <div><div class="x-foot-brand"><svg class="x-crest" viewBox="0 0 64 72" aria-hidden="true" focusable="false"><path d="M32 3 L59 11 V35 C59 52 47 63 32 69 C17 63 5 52 5 35 V11 Z" fill="#121821" stroke="#d4ae4f" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M32 9 L53 15 V35 C53 48 44 57 32 62 C20 57 11 48 11 35 V15 Z" fill="none" stroke="#d4ae4f" stroke-opacity=".35" stroke-width="1"/>
+<circle cx="32" cy="35" r="13" fill="none" stroke="#39d0d8" stroke-width="2"/>
+<ellipse cx="32" cy="35" rx="5.5" ry="13" fill="none" stroke="#39d0d8" stroke-width="1.2" stroke-opacity=".8"/>
+<line x1="19" y1="35" x2="45" y2="35" stroke="#39d0d8" stroke-width="1.2" stroke-opacity=".8"/>
+<g class="orbit"><ellipse cx="32" cy="35" rx="22" ry="6.5" fill="none" stroke="#d4ae4f" stroke-width="1.8" transform="rotate(-22 32 35)"/>
+<circle cx="51.6" cy="27.4" r="2.4" fill="#d4ae4f"/></g></svg><div><h3>Projeto 360X · Mundo</h3><p>Observatório geopolítico-tecnológico: 12 temas, 12 códigos, 6 desfechos e sentinelas datadas.</p><p class="x-motto">OBSERVAR → DOCUMENTAR → VERIFICAR → PROTEGER → ENCAMINHAR</p></div></div></div>
+  <div><h3>Créditos</h3><p><strong>Aldenir Rocha de Oliveira Filho</strong> — idealizador, gerador, coordenador, diretor e promotor da Equipe 360X.</p><p>Projeto 360X de Aldenir Rocha de Oliveira Filho · Equipe 360X. Pesquisa assistida por IA, com fontes datadas e verificáveis.</p></div>
+  <div><h3>Navegar</h3><ul><li><a href="temas.html">🧭 Os 12 temas</a></li><li><a href="mapa.html">🗺️ Mapa de vínculo interativo</a></li><li><a href="panorama.html">📜 Panorama (≈45 fontes)</a></li><li><a href="analise.html">⛓️ Análise e projeção 2046</a></li><li><a href="https://github.com/aldenirfilho/projeto-360x-mundo">💻 Repositório no GitHub</a> · <a href="https://github.com/aldenirfilho/projeto-360x-mundo/issues">apontar correção</a></li></ul></div>
+</div><div class="x-foot-base"><span>Corte analítico 08/09/2026 · sentinelas revistas em 17/11/2026 · projeção ≠ previsão</span><span class="x-thanks">Grato desde já. 🙏</span></div></footer>
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+  // ---------- DATA ----------
+  var THEMES=[
+    {id:'T01',e:'🤖',n:'Guerra das IAs (EUA)',d:'OpenAI × Anthropic × Google; Meta e xAI em 2º tier de modelo, 1º de capital.',ev:['Anthropic US$ 965 bi > OpenAI US$ 852 bi (mai/26) 📄','Nvidia >60 % do compute; OpenAI ≈ 40 % da DRAM 📄','Claude usado para identificar alvos na Op. Epic Fury ✅','Investimento privado EUA US$ 344 bi, 23:1 vs China 📄']},
+    {id:'T02',e:'🇨🇳',n:'Estratégia chinesa de IA',d:'Open-weight, eficiência e difusão (AI+); HBM como gargalo.',ev:['Gap Elo 2,7 % gastando 23× menos 📄','53,5 % da DeepSeek formada só na China; 71 % retornaram 📄','Ascend: estimativas de 2025 vão de <300 mil a ~810 mil unidades; gargalo é HBM (CXMT) ⚠️','AI+ 70 % (2027) → 90 % (2030) ✅']},
+    {id:'T03',e:'🧬',n:'Coleta de DNA na China',d:'Genoma como recurso estratégico: coleta interna, importação, exportação proibida.',ev:['Tibete: 25–33 % da população coletada (2016–22), com crianças ✅','Y-STR: alvo 35–70 mi de homens, 22 de 31 regiões ✅','CNCB >100 PB (fev/26); BGI em 52 países ✅','BIOSECURE (dez/25); BGI/MGI na lista 1260H ✅']},
+    {id:'T04',e:'🇪🇺',n:'Europa na corrida da IA',d:'Bem regulada, subcapitalizada; soberania de inferência.',ev:['Mistral €3 bi a €21 bi (08/09/26) 📄','2 modelos notáveis vs 50 dos EUA 📄','AI Gigafactories €20 bi, obras 2027 📄','AI Act adiado: dez/27 e ago/28 📄']},
+    {id:'T05',e:'🇧🇷',n:'Plano Brasileiro de IA',d:'Soberania declarada, chips indefinidos, eleição sob regra de deepfake.',ev:['UFRN 7.200 PFLOPS (GPU a definir) + RJ Huawei/iFlytek 📄','Sabiá 4: 77,7 % em redação jurídica; R$ 206 vs R$ 590 📄','TSE: tese de deepfake (01/09) 📄','Redata caducou; PL 2338 sem plenário confirmado ⚠️']},
+    {id:'T06',e:'💾',n:'Crise de chips e hardware',d:'HBM canibaliza DRAM; memória é o novo petróleo.',ev:['DRAM +172 %; memória 35 % do PC 📄','Smartphones −12,9 %, ASP +14,2 % (IDC 1Q26) ✅','Fim: Micron 2027 · Samsung 2028 · SK Hynix 2030 📄','SMIC >1 mi dies/ano; CXMT só terá HBM3E em 2027 ✅']},
+    {id:'T07',e:'📱',n:'Smartphones até 2030',d:'O terminal da IA: 2 nm, 12 GB, dobráveis, agentes on-device, satélite.',ev:['iPhone Duo dobrável a partir de US$ 1.999 (lançado 09/09) ✅','Dobráveis +30 % em 2026; CAGR 17 % até 2029 ✅','Galaxy S26: agente on-device, 12 GB mínimo 📄','6G ≈ 2030; direct-to-cell Starlink V3 🧠📄']},
+    {id:'T08',e:'🚀',n:'Corrida espacial',d:'EUA à frente em tudo, exceto cronograma; órbita como infraestrutura militar.',ev:['SpaceX+xAI IPO recorde; Starship sem refueling 📄','Artemis III → LEO 2027, pouso 2028 📄','Golden Dome US$ 185 bi, meta 2028 📄','China: pouso tripulado 2030; LM-10/Mengzhou testados 📄']},
+    {id:'T09',e:'☢️',n:'Energia nuclear e urânio',d:'12.187 ogivas, zero tratados, IA financiando o ciclo do combustível.',ev:['New START expirou fev/26 📄','440,9 kg HEU iraniano sem paradeiro 📄','9,8 GW nucleares para data centers 📄','Saudi: enriquecimento 5–20 % sem Protocolo Adicional 📄']},
+    {id:'T10',e:'🎯',n:'IA e poder militar',d:'Dos dois lados os modelos já planejam ataques; o freio é contratual.',ev:['4 × US$ 200 mi (jul/25); 7 contratos classificados (mai/26) ✅','Anthropic "risco de cadeia" (mar/26) → mantido na apelação (set/26) ✅','PLAAF: planejamento de ataque com 100+ unidades ✅','Só declaração não vinculante sobre NC3 (nov/24) 🧠']},
+    {id:'T11',e:'🔮',n:'Cenários futuros',d:'Função de saída dos outros 11 temas: quatro quadrantes e sentinelas.',ev:['Eixos: bifurcação (D2) × governança (C11)','Lentes: AI 2027, MAIM, Amodei, FMI 🧠','Sem probabilidades — só sentinelas']},
+    {id:'T12',e:'🏮',n:'Metas chinesas 2035 & 2049',d:'A única agenda datada de ponta a ponta — o relógio do sistema.',ev:['15º Plano (12/03/26): P&D +7,1 %/ano; digital 12,5 % do PIB ✅','Meta de 70 % de chips retirada ✅','PLA: 2027 → 2035 → 2049 ✅','AI+ 70/90 %; economia inteligente 2035 ✅']}
+  ];
+  var CODES=[
+    {id:'C01',e:'🧮',n:'COMPUTE',f:'rec',d:'Chips, HBM, data centers — quem tem FLOPS.'},
+    {id:'C02',e:'⚡',n:'ENERGIA',f:'rec',d:'GW para IA; nuclear, HALEU, fusão, reator lunar.'},
+    {id:'C03',e:'🧬',n:'DADOS',f:'rec',d:'Texto, telemetria, biometria, genoma.'},
+    {id:'C04',e:'🧑‍🔬',n:'TALENTO',f:'rec',d:'Formação, diáspora, repatriação, R&D.'},
+    {id:'C05',e:'💰',n:'CAPITAL',f:'rec',d:'Investimento privado/estatal, valuations, IPOs, subsídios.'},
+    {id:'C06',e:'🛡️',n:'SOBERANIA',f:'est',d:'Autonomia tecnológica; nuvem e genoma nacionais.'},
+    {id:'C07',e:'⛓️',n:'GARGALO',f:'est',d:'Dependência assimétrica: EUV, HBM, TSMC, SWU, refueling.'},
+    {id:'C08',e:'⚔️',n:'DUAL-USE',f:'for',d:'Civil ↔ militar: enriquecimento, SLV↔míssil, LLM↔ciber, genoma↔bio.'},
+    {id:'C09',e:'🎯',n:'DISSUASÃO',f:'for',d:'Capacidade de infligir custo; velocidade de decisão; NC3.'},
+    {id:'C10',e:'👁️',n:'BIOPODER',f:'for',d:'Controle de populações por dados: DNA, deepfake, vigilância.'},
+    {id:'C11',e:'📜',n:'GOVERNANÇA',f:'est',d:'Regras e sua erosão: AI Act, TSE, New START, AIEA, export controls.'},
+    {id:'C12',e:'🌐',n:'DIFUSÃO',f:'est',d:'Quem acessa: preço, open-weight, AI+, o smartphone como terminal.'}
+  ];
+  var OUTS=[
+    {id:'D1',e:'🏁',n:'Fronteira da IA em 2030',d:'Modelo mais capaz + compute para servi-lo.'},
+    {id:'D2',e:'🧱',n:'Bifurcação do stack',d:'Dois ecossistemas incompatíveis (chips, modelos, dados, espaço).'},
+    {id:'D3',e:'⚡',n:'Renuclearização via IA',d:'Reatores para data centers; enriquecimento normalizado.'},
+    {id:'D4',e:'🎯',n:'Militarização sem controle',d:'Ciclo sensor-tiro encurta; tratados morrem.'},
+    {id:'D5',e:'👁️',n:'Regime de dados humanos',d:'Quem governa genoma, biometria e deepfake.'},
+    {id:'D6',e:'🌍',n:'Acesso: dentro / fora',d:'Preço do hardware e difusão barata vs cara.'}
+  ];
+  // themes × codes (rows T01..T12, cols C01..C12)
+  var TC=[
+    [3,2,2,2,3,1,2,2,1,1,2,2],
+    [3,1,2,3,2,3,3,2,1,1,2,3],
+    [0,0,3,1,1,3,1,2,0,3,3,1],
+    [2,1,1,1,2,3,2,1,1,1,3,1],
+    [2,1,1,1,2,3,2,1,0,2,3,2],
+    [3,1,0,0,2,2,3,0,0,0,2,3],
+    [2,1,2,0,1,1,2,0,0,2,1,3],
+    [1,2,1,0,3,2,2,3,3,0,1,1],
+    [0,3,0,0,2,2,3,3,3,0,3,0],
+    [2,0,2,1,2,1,1,3,3,2,3,1],
+    [2,2,1,1,1,1,1,2,3,2,3,2],
+    [2,2,1,2,2,3,2,1,2,1,1,3]
+  ];
+  // codes × outcomes (rows C01..C12, cols D1..D6)
+  var CO=[
+    [3,3,2,2,1,2],
+    [2,1,3,2,0,1],
+    [2,2,0,2,3,1],
+    [3,2,0,1,0,1],
+    [3,2,3,2,0,2],
+    [1,3,2,1,3,2],
+    [2,3,2,1,0,3],
+    [0,1,3,3,2,0],
+    [0,2,2,3,0,0],
+    [0,1,0,2,3,1],
+    [1,2,2,3,3,2],
+    [2,2,0,1,1,3]
+  ];
+  var FAMCOL={rec:'var(--fam-rec)',est:'var(--fam-est)',for:'var(--fam-for)'};
+
+  // ---------- MAP ----------
+  var svg=document.getElementById('map');
+  var NS='http://www.w3.org/2000/svg';
+  function el(tag,attrs,parent){var n=document.createElementNS(NS,tag);for(var k in attrs){n.setAttribute(k,attrs[k]);}if(parent)parent.appendChild(n);return n;}
+  var X={t:30,c:470,o:900},W={t:290,c:290,o:260},H={t:46,c:46,o:96},TOP=56,STEP=60,OSTEP=120;
+  var pos={};
+  function cy(i,step,h){return TOP+i*step+h/2;}
+  // column heads
+  function head(x,w,txt,sub){var t=el('text',{x:x,y:26,'class':'colhead'},svg);t.textContent=txt;var s=el('text',{x:x,y:42,'class':'colsub'},svg);s.textContent=sub;}
+  head(X.t,W.t,'12 temas','o que o 360X Mundo cobre');
+  head(X.c,W.c,'12 códigos conceituais','⚙️ recursos · 🏛️ estrutura · ⚔️ força');
+  head(X.o,W.o,'6 desfechos objetivos','onde tudo converge');
+  var gLinks=el('g',{id:'links'},svg), gNodes=el('g',{id:'nodes'},svg);
+  var links=[]; // {el,a,b,w,kind}
+  function path(x1,y1,x2,y2){var mx=(x1+x2)/2;return 'M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2;}
+  THEMES.forEach(function(t,i){pos[t.id]={x:X.t,y:cy(i,STEP,H.t),w:W.t,h:H.t};});
+  CODES.forEach(function(c,i){pos[c.id]={x:X.c,y:cy(i,STEP,H.c),w:W.c,h:H.c};});
+  OUTS.forEach(function(o,i){pos[o.id]={x:X.o,y:cy(i,OSTEP,H.o),w:W.o,h:H.o};});
+  function addLink(a,b,w){var pa=pos[a],pb=pos[b];var p=el('path',{d:path(pa.x+pa.w,pa.y,pb.x,pb.y),'class':'link','stroke-width':(w===3?3.5:w===2?2:1),'data-w':w},gLinks);links.push({el:p,a:a,b:b,w:w});}
+  THEMES.forEach(function(t,i){CODES.forEach(function(c,j){var w=TC[i][j];if(w>0)addLink(t.id,c.id,w);});});
+  CODES.forEach(function(c,i){OUTS.forEach(function(o,j){var w=CO[i][j];if(w>0)addLink(c.id,o.id,w);});});
+  var nodes={};
+  function node(item,kind){var p=pos[item.id];var g=el('g',{'class':'node '+(kind==='o'?'out':''),tabindex:'0',role:'button','data-id':item.id,'aria-label':item.id+' '+item.n},gNodes);
+    el('rect',{x:p.x,y:p.y-p.h/2,width:p.w,height:p.h,rx:4},g);
+    if(kind==='c'){el('rect',{x:p.x,y:p.y-p.h/2,width:5,height:p.h,rx:2,'class':'fam',fill:FAMCOL[item.f]},g);}
+    if(kind==='t'){el('rect',{x:p.x+p.w-5,y:p.y-p.h/2,width:5,height:p.h,rx:2,'class':'fam',fill:'var(--accent)'},g);}
+    var id=el('text',{x:p.x+12,y:p.y-(kind==='o'?30:6),'class':'nid'},g);id.textContent=item.id;
+    var nm=el('text',{x:p.x+12,y:p.y+(kind==='o'?-12:12),'font-weight':'600'},g);nm.textContent=item.e+' '+item.n;
+    if(kind==='o'){var words=item.d.split(' '),lines=[],cur='';words.forEach(function(w){if((cur+' '+w).trim().length>34){lines.push(cur.trim());cur=w;}else{cur+=' '+w;}});if(cur.trim())lines.push(cur.trim());lines.slice(0,3).forEach(function(ln,k){var d=el('text',{x:p.x+12,y:p.y+16+k*14,'font-size':'11.5px',fill:'var(--ink-2)'},g);d.textContent=ln;});}
+    nodes[item.id]={g:g,item:item,kind:kind};
+    g.addEventListener('mouseenter',function(){if(!pinned)highlight(item.id);});
+    g.addEventListener('mouseleave',function(){if(!pinned)clear();});
+    g.addEventListener('click',function(){toggle(item.id);});
+    g.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggle(item.id);}});
+  }
+  THEMES.forEach(function(t){node(t,'t');});CODES.forEach(function(c){node(c,'c');});OUTS.forEach(function(o){node(o,'o');});
+  var pinned=null, showWeak=false;
+  function applyWeak(){links.forEach(function(l){l.el.style.display=(l.w===1&&!showWeak)?'none':'';});}
+  applyWeak();
+  document.getElementById('weak').addEventListener('change',function(e){showWeak=e.target.checked;applyWeak();if(pinned)highlight(pinned);});
+  document.getElementById('reset').addEventListener('click',function(){pinned=null;clear();panelReset();});
+  function neighbors(id){var set={};set[id]=true;links.forEach(function(l){if(l.w===1&&!showWeak)return;if(l.a===id)set[l.b]=true;if(l.b===id)set[l.a]=true;});
+    // second hop: theme -> codes -> outcomes, or outcome -> codes -> themes (only strong path, weight>=2 both hops)
+    var k=nodes[id].kind;if(k==='t'){links.forEach(function(l){if(l.w>=2&&set[l.a]&&nodes[l.a].kind==='c'&&nodes[l.b].kind==='o'&&(function(){var tw=0;links.forEach(function(m){if(m.a===id&&m.b===l.a)tw=m.w;});return tw>=2;})())set[l.b]=true;});}
+    if(k==='o'){links.forEach(function(l){if(l.w>=2&&set[l.b]&&nodes[l.b].kind==='c'&&nodes[l.a].kind==='t'&&(function(){var cw=0;links.forEach(function(m){if(m.a===l.b&&m.b===id)cw=m.w;});return cw>=2;})())set[l.a]=true;});}
+    return set;}
+  function highlight(id){var set=neighbors(id);
+    for(var k in nodes){nodes[k].g.classList.toggle('dim',!set[k]);nodes[k].g.classList.toggle('on',!!set[k]&&k!==id);}
+    links.forEach(function(l){var on=(set[l.a]&&set[l.b])&&(l.a===id||l.b===id||(nodes[id].kind!=='c'&&set[l.a]&&set[l.b]&&l.w>=2));l.el.classList.toggle('on',!!on);l.el.classList.toggle('dim',!on);});
+    panel(id);}
+  function clear(){for(var k in nodes){nodes[k].g.classList.remove('dim','on','pinned');}links.forEach(function(l){l.el.classList.remove('on','dim');});}
+  function toggle(id){if(pinned===id){pinned=null;clear();panelReset();return;}pinned=id;clear();highlight(id);nodes[id].g.classList.add('pinned');}
+  var pa=document.getElementById('panel-a');
+  function panelReset(){pa.innerHTML='<h4><span class="id">—</span> Selecione um nó</h4><p class="df">O painel mostra a definição, as evidências e os vínculos ponderados do nó escolhido.</p>';}
+  function chip(id,w){var it=nodes[id].item;return '<span class="chip w'+w+'">'+id+' '+it.e+' <span class="w">'+w+'</span></span>';}
+  function panel(id){var n=nodes[id],it=n.item,html='<h4><span class="id">'+it.id+'</span> '+it.e+' '+it.n+'</h4><p class="df">'+it.d+'</p>';
+    if(it.ev){html+='<ul>'+it.ev.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';}
+    var ins=[],outs=[];links.forEach(function(l){if(l.a===id)outs.push(chip(l.b,l.w));if(l.b===id)ins.push(chip(l.a,l.w));});
+    if(ins.length)html+='<div class="small muted" style="margin-top:10px">Recebe de</div><div class="chips">'+ins.join('')+'</div>';
+    if(outs.length)html+='<div class="small muted" style="margin-top:10px">Alimenta</div><div class="chips">'+outs.join('')+'</div>';
+    pa.innerHTML=html;}
+
+  // ---------- MATRICES ----------
+  var tip=document.getElementById('tip');
+  function showTip(e,txt){tip.textContent=txt;tip.classList.add('show');moveTip(e);}
+  function moveTip(e){var x=e.clientX+14,y=e.clientY+14;if(x+300>window.innerWidth)x=e.clientX-300;tip.style.left=x+'px';tip.style.top=y+'px';}
+  function hideTip(){tip.classList.remove('show');}
+  function matrix(tableId,rows,cols,M,rowLabel){var t=document.getElementById(tableId),h='<thead><tr><th></th>';
+    cols.forEach(function(c){h+='<th>'+c.id+'<span>'+c.e+' '+c.n+'</span></th>';});h+='<th>Σ</th></tr></thead><tbody>';
+    rows.forEach(function(r,i){var sum=0;h+='<tr><th>'+r.id+' '+r.e+' '+r.n+'</th>';M[i].forEach(function(v,j){sum+=v;h+='<td class="v'+v+'" data-r="'+i+'" data-c="'+j+'">'+(v===0?'·':v)+'</td>';});h+='<td class="sum">'+sum+'</td></tr>';});
+    // column sums
+    h+='<tr><th>Σ</th>';cols.forEach(function(c,j){var s=0;M.forEach(function(row){s+=row[j];});h+='<td class="sum">'+s+'</td>';});h+='<td></td></tr></tbody>';
+    t.innerHTML=h;
+    t.addEventListener('mousemove',function(e){var td=e.target.closest('td[data-r]');if(!td){hideTip();return;}var r=rows[+td.dataset.r],c=cols[+td.dataset.c],v=M[+td.dataset.r][+td.dataset.c];showTip(e,r.id+' '+r.n+'  ×  '+c.id+' '+c.n+'  →  '+v+'/3');});
+    t.addEventListener('mouseleave',hideTip);}
+  matrix('mx1',THEMES,CODES,TC);
+  matrix('mx2',CODES,OUTS,CO);
+  // readouts
+  var colSums=CODES.map(function(c,j){var s=0;TC.forEach(function(r){s+=r[j];});return {c:c,s:s};}).sort(function(a,b){return b.s-a.s;});
+  var rowSums=THEMES.map(function(t,i){return {t:t,s:TC[i].reduce(function(a,b){return a+b;},0)};}).sort(function(a,b){return b.s-a.s;});
+  var outSums=OUTS.map(function(o,j){var s=0;CO.forEach(function(r){s+=r[j];});return {o:o,s:s};}).sort(function(a,b){return b.s-a.s;});
+  document.getElementById('readouts').innerHTML=
+    '<div class="readout"><div class="k">Códigos mais centrais (Σ temas)</div><div class="v">'+colSums.slice(0,3).map(function(x){return x.c.id;}).join(' · ')+'</div><div class="s">'+colSums.slice(0,4).map(function(x){return x.c.e+' '+x.c.n+' '+x.s;}).join(' · ')+'</div></div>'+
+    '<div class="readout"><div class="k">Temas mais largos (Σ códigos)</div><div class="v">'+rowSums.slice(0,3).map(function(x){return x.t.id;}).join(' · ')+'</div><div class="s">'+rowSums.slice(0,4).map(function(x){return x.t.e+' '+x.t.n.split(' ')[0]+' '+x.s;}).join(' · ')+'</div></div>'+
+    '<div class="readout"><div class="k">Desfechos mais alimentados (Σ códigos)</div><div class="v">'+outSums.slice(0,3).map(function(x){return x.o.id;}).join(' · ')+'</div><div class="s">'+outSums.slice(0,4).map(function(x){return x.o.e+' '+x.o.n+' '+x.s;}).join(' · ')+'</div></div>';
+})();
+</script>
+
+<script>(function(){var d=document.documentElement,b=document.querySelector('.x-read');if(!b)return;b.setAttribute('aria-pressed',d.classList.contains('x-dys')?'true':'false');b.addEventListener('click',function(){var on=d.classList.toggle('x-dys');b.setAttribute('aria-pressed',on?'true':'false');try{localStorage.setItem('x360-dys',on?'1':'0')}catch(e){}});})();</script>
+</body>
+</html>

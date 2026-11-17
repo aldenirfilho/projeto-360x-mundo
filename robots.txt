@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aldenirfilho.github.io/projeto-360x-mundo/sitemap.xml

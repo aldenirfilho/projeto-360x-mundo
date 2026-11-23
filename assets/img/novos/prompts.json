@@ -1,0 +1,56 @@
+{
+  "generator": "image_gen built-in",
+  "kind": "fictional concept art, not documentary",
+  "created": "2026-11-23",
+  "assets": [
+    {
+      "slug": "realmetaverso-refugio",
+      "prompt": "Use case: stylized-concept. Asset type: premium widescreen 16:9 cinematic website hero, high-end concept art, not a photograph of a real event. Primary request: envision an open, inclusive humanist city of the fictional Realmetaverso integrated into the Brazilian Caatinga landscape as a refuge preserving humanity. Show dignified sober arcane architecture, a public library and academy, clinic, shaded walkable squares, water reservoirs and solar panels, diverse ordinary people across ages cooperating. Sweeping panoramic vista from a gentle hillside, believable scale, rich atmospheric depth, detailed stone and native vegetation. Deep twilight blue and warm gold lighting, hopeful but realistic, sophisticated matte painting. No military elements, no closed domes, no royal worship, no readable text, no logos, no watermark. Entire composition landscape 16:9.",
+      "original": "realmetaverso-refugio.png",
+      "width": 1672,
+      "height": 941,
+      "webp": [
+        "realmetaverso-refugio-768.webp",
+        "realmetaverso-refugio-1280.webp",
+        "realmetaverso-refugio.webp"
+      ]
+    },
+    {
+      "slug": "mundo-fragmentado",
+      "prompt": "Use case: stylized-concept. Asset type: premium widescreen 16:9 concept illustration for a future scenarios website. Primary request: a plausible conditional future of a fragmented global city under climate heat and incompatible digital infrastructures, while ordinary diverse people still cooperate. Ground-level elevated panoramic view across contrasting neighborhoods, data infrastructure, civil drones, intermittent power and hot haze, shaded community shelter with people helping each other. Sober cinematic cyber realism, detailed lived-in urban textures, nuanced blue and amber light, sophisticated editorial science fiction concept art. No battle, no atrocity, no weapon instructions, no demonized nationalities, no political flags, no readable text or logos, no watermark. Clearly speculative, not photojournalism. Landscape 16:9.",
+      "original": "mundo-fragmentado.png",
+      "width": 1672,
+      "height": 941,
+      "webp": [
+        "mundo-fragmentado-768.webp",
+        "mundo-fragmentado-1280.webp",
+        "mundo-fragmentado.webp"
+      ]
+    },
+    {
+      "slug": "sobral-resiliente",
+      "prompt": "Use case: stylized-concept. Asset type: premium widescreen 16:9 future-city concept illustration. Primary request: a future city inspired by Sobral in Ceará Brazil, with the Acaraú River and Caatinga landscape, as an optimistic but physically plausible study of human resilience. Riverbanks restored with native vegetation, shaded walkable streets, public clinic and school, rooftop solar panels, rainwater infrastructure, citizen science and diverse residents including elderly people, families and wheelchair users. Low and midrise northeastern Brazilian architecture, distant dryland hills, warm late afternoon, rich natural greens and ochre against blue water and sky. High-end cinematic architectural concept art with subtle futuristic details. It is an imaginative proposal, not exact geographic reconstruction. No readable text, no logos, no watermark, no magical cure symbols. Landscape 16:9.",
+      "original": "sobral-resiliente.png",
+      "width": 1672,
+      "height": 941,
+      "webp": [
+        "sobral-resiliente-768.webp",
+        "sobral-resiliente-1280.webp",
+        "sobral-resiliente.webp"
+      ]
+    },
+    {
+      "slug": "biblioteca-viva",
+      "prompt": "Use case: stylized-concept. Asset type: premium widescreen 16:9 cinematic website illustration. Primary request: interior of the fictional Realmetaverso's humanist arcane library and academy, preserving humanity's memory. Elders and young people work together around books, seed archives, cultural artifacts and quiet digital memory terminals; assistive technology and AI remain discreet and under human control. Show an inclusive warm study hall with accessible tables and ramps, monumental but welcoming stone and wood architecture, refined subtle arcane motifs, physical books and simple seed specimen storage. Amber daylight and restrained cyan interface light, extremely detailed textures, sophisticated cinematic concept art, hopeful calm human atmosphere. No readable text, no logos, no watermark, no religion presented as fact. Landscape 16:9.",
+      "original": "biblioteca-viva.png",
+      "width": 1672,
+      "height": 941,
+      "webp": [
+        "biblioteca-viva-768.webp",
+        "biblioteca-viva-1280.webp",
+        "biblioteca-viva.webp"
+      ]
+    }
+  ],
+  "note": "Imagens conceituais de futuros possíveis, geradas por IA. Não são registros documentais nem mapas geográficos exatos."
+}

@@ -172,3 +172,5 @@ figcaption{font-size:14px;color:var(--muted);margin-top:8px;max-width:110ch}
 .prose .tbl td:first-child{white-space:normal}
 .prose img{border:1px solid var(--line);border-radius:6px;margin:10px 0}
 .prose input[type=checkbox]{accent-color:var(--gold);margin-right:6px}
+
+.legacy-review{max-width:1200px;margin:20px auto;padding:18px 22px;border:1px solid #756141;background:#14212a;font-size:18px;line-height:1.6;color:#bdc8d0}.legacy-review strong{color:#e2be71}.legacy-review a{color:#6de0d1}

@@ -1,3 +1,18 @@
+## Edição de desenvolvimento · 23/11/2026
+
+O novo início conecta geopolítica, cenários condicionais e preservação humana. Inclui quatro ilustrações originais widescreen com versões WebP responsivas, explorador de três cenários em três horizontes, seis Frentes de Preservação propostas, aplicação local em Sobral e um checklist pessoal de 20 minutos.
+
+- `index.html`: atlas ampliado, fontes e roteiro 30/90/365 dias.
+- `realmetaverso.html`: cânone referenciado, mapa funcional, governança, pacto e três cenas literárias novas.
+- `observatorio.html`: preservação da página inicial anterior, identificada pelo recorte de 17/11/2026.
+- As novas frentes permanecem propostas: não alteram as Casas canônicas nem ratificam harmonizações dos compêndios.
+- Marcações do checklist são locais e autodeclaradas; não comprovam execução institucional.
+- JavaScript é opcional para a leitura; os controles dinâmicos e a exportação exigem JavaScript.
+
+Verificação: `python3 scripts/check_static.py` e `node --check assets/js/futuro.js`. A revisão do conteúdo anterior foi amostral, não integral.
+
+---
+
 <p align="center">
   <img src="favicon.svg" width="88" alt="Brasão do Projeto 360X · Mundo">
 </p>
